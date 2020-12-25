@@ -1,0 +1,17 @@
+minio:
+  access-key: admin
+  secret-key: admin123456
+  host: http://localhost:9000
+server:
+  port: 9005
+spring:
+  application:
+    name: pt-file-center
+  cloud:
+    inetutils:
+      ignored-interfaces: eth.*              # 忽略网卡，eth.*，正则表达式
+      preferred-networks: ${spring.cloud.nacos.discovery.server-addr}
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+

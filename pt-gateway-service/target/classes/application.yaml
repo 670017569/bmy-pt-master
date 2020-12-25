@@ -1,0 +1,39 @@
+server:
+  port: 9001
+spring:
+  profiles:
+    active: dev
+  application:
+    name: pt-gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: pt-auth-center
+          uri: lb://pt-auth-center
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
+        - id: pt-admin-api
+          uri: lb://pt-admin-api
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+
+        - id: pt-wx-api
+          uri: lb://pt-wx-api
+          predicates:
+            - Path=/wx/**
+          filters:
+            - StripPrefix=1
+        - id: pt-file-center
+          uri: lb://pt-file-center
+          predicates:
+            - Path=/file/**
+          filters:
+            - StripPrefix=1
