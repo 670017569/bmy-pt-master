@@ -1,5 +1,6 @@
 package com.bmy.wx.service;
 
+import com.bmy.core.api.AuthenticationApi;
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.mapper.UserInfoMapper;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class UserInfoService {
     @Resource
     private UserInfoMapper userInfoMapper;
 
+    @Resource
+    private AuthenticationApi api;
     /**
      * 根据主键查询用户信息
      * @param uid
@@ -26,5 +29,7 @@ public class UserInfoService {
     public UserInfo getUserInfo(Long uid){
         return userInfoMapper.selectByPrimaryKey(uid);
     }
+
+
 
 }

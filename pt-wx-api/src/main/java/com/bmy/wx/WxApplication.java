@@ -3,6 +3,7 @@ package com.bmy.wx;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -16,6 +17,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan("com.bmy.dao.mapper")
 @ComponentScan("com.bmy")
 @EnableDiscoveryClient
+@EnableFeignClients("com.bmy.core.api")
 public class WxApplication {
 
     public static void main(String[] args) {

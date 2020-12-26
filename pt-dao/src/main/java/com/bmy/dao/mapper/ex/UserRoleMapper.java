@@ -1,8 +1,12 @@
 package com.bmy.dao.mapper.ex;
 
 import com.bmy.dao.domain.Role;
+import com.bmy.dao.domain.ex.UserRole;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
@@ -13,7 +17,7 @@ import java.util.List;
  *@Date 2020/12/22 下午11:42
 **/
 @Repository
-public interface UserRoleMapper {
+public interface UserRoleMapper extends Mapper<UserRole> {
 
     @Select("select * \n" +
             "from user_role\n" +
@@ -21,5 +25,6 @@ public interface UserRoleMapper {
             "on role.id = user_role.rid\n" +
             "where uid = #{uid}")
     public List<Role> selectRolesByUid(Long uid);
+
 
 }

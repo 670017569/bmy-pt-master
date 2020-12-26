@@ -1,12 +1,14 @@
 package com.bmy.auth.service;
 
 import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.RandomUtil;
 import com.bmy.auth.config.WxProperties;
-import com.bmy.auth.entity.SecurityUser;
+import com.bmy.auth.vo.SecurityUser;
 import com.bmy.auth.vo.WxUserSession;
 import com.bmy.dao.domain.Role;
 import com.bmy.dao.domain.User;
 import com.bmy.dao.domain.WxUserInfo;
+import com.bmy.dao.domain.ex.UserRole;
 import com.bmy.dao.mapper.RoleMapper;
 import com.bmy.dao.mapper.UserMapper;
 import com.bmy.dao.mapper.WxUserInfoMapper;
@@ -59,12 +61,15 @@ public class WxOpenIdUserDetailsService {
     @Resource
     private UserRoleMapper userRoleMapper;
 
+    @Resource
+    private RoleMapper roleMapper;
+
     /**
      * 传入wxopenid, 用户存在则返回信息
      * @return {@link UserDetails}
      * @param wxOpenid 微信openid
      */
-    public UserDetails loadUserByWxOpenid(String wxOpenid) {
+    public SecurityUser loadUserByWxOpenid(String wxOpenid) {
         log.info("微信小程序用户登录开始: 传入wxOpenid:{}",wxOpenid);
 
         Example example = new Example(User.class);
@@ -89,21 +94,34 @@ public class WxOpenIdUserDetailsService {
      * @param wxUserInfo {@link WxUserInfo}
      * @param wxOpenid 微信openid
      */
-    public UserDetails createUser(WxUserInfo wxUserInfo, String wxOpenid) {
-        Long id = snowflake.nextId();
+    public SecurityUser createUser(WxUserInfo wxUserInfo, String wxOpenid) {
+        Long uid = snowflake.nextId();
         try {
-            log.info("微信小程序用户注册 ==> 开始 生成uid:{}",id);
+            log.info("微信小程序用户注册 ==> 开始 生成uid:{}",uid);
+            String username = RandomUtil.randomString(24);
             User user = User.builder()
-                    .id(id)
+                    .id(uid)
+                    .username(username)
                     .wxOpenid(wxOpenid)
                     .build();
             int res = userMapper.insertSelective(user);
             if (1 == res) {
                 log.info("用户表数据插入成功");
-                wxUserInfo.setUid(id);
+                wxUserInfo.setUid(uid);
                 log.info("生成微信用户信息：{}",wxUserInfo);
                 wxUserInfoMapper.insertSelective(wxUserInfo);
                 log.info("微信用户信息插入成功");
+                Long id = snowflake.nextId();
+
+                Example example = new Example(Role.class);
+                example.and()
+                        .andEqualTo("name","WX_USER");
+
+                Long rid = roleMapper.selectOneByExample(example).getId();
+                UserRole userRole = UserRole.builder().id(id).uid(uid).rid(rid).build();
+                log.info("查找USER角色的rid");
+                userRoleMapper.insert(userRole);
+                log.info("为用户关联角色");
             }
         }catch (DuplicateKeyException e){
             log.info("用户信息插入失败:{}",e.toString());

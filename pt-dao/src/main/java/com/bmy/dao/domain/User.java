@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class User  implements Serializable {
+
+
     /**
      * 主键id
      */

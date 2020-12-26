@@ -3,9 +3,6 @@ package com.bmy.auth.controller;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.core.exception.UnAuthorizedException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -30,7 +27,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/oauth")
-@Api(tags = "认证服务接口")
 public class OAuth2Controller {
 
     private final WebResponseExceptionTranslator<OAuth2Exception> exceptionTranslator = new DefaultWebResponseExceptionTranslator();
@@ -41,7 +37,6 @@ public class OAuth2Controller {
     @Resource
     private CheckTokenEndpoint checkTokenEndpoint;
 
-    @ApiOperation("GET类型的token认证")
     @GetMapping("/token")
     public R<Object> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 
@@ -54,31 +49,28 @@ public class OAuth2Controller {
         return new R<>(Response.LOGIN_SUCCESS,o);
     }
 
-    @ApiOperation("POST类型的token认证 默认有四种模式 外加wx和phone认证模式")
     @PostMapping("/token")
     public R<Object> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         Object o = null;
-
         try {
             o = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         }catch (BadCredentialsException | InvalidGrantException | UnsupportedGrantTypeException | InvalidScopeException | InvalidClientException | UnAuthorizedException | CredentialsExpiredException | UsernameNotFoundException e ){
 
             if (e instanceof UnsupportedGrantTypeException){
-                return new R<>(Response.INVALID_GRANT_TYPE,e);
+                return new R<>(Response.INVALID_GRANT_TYPE);
             }else if (e instanceof InvalidClientException){
-                return new R<>(Response.ILLEGAL_CLIENT,e);
+                return new R<>(Response.ILLEGAL_CLIENT);
             }else if (e instanceof InvalidScopeException){
-                return new R<>(Response.ILLEGAL_SCOPE,e);
+                return new R<>(Response.ILLEGAL_SCOPE);
             }
-            return new R<>(Response.INVALID_PASSWORD_USERNAME,e);
+            return new R<>(Response.INVALID_PASSWORD_USERNAME);
         }
         return new R<>(Response.LOGIN_SUCCESS,o);
     }
 
-    @ApiOperation("核实token")
     @GetMapping("/check_token")
     public R<Object> checkToken(@RequestParam("token") String value) {
-        return new  R<Object>(Response.CHECK_SUCCESS,checkTokenEndpoint.checkToken(value));
+        return new  R<>(Response.CHECK_SUCCESS,checkTokenEndpoint.checkToken(value));
     }
 
     //这里是异常翻译，如果这里不设置，则需要在全局异常处处理

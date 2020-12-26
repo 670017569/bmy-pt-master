@@ -1,5 +1,6 @@
 package com.bmy.auth.service;
 
+import cn.hutool.core.util.RandomUtil;
 import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jsms.api.SendSMSResult;
@@ -36,10 +37,6 @@ public class SmsService {
     @Resource
     private SmsProperties smsProperties;
 
-    private static final Random random = new Random(System.currentTimeMillis());
-
-    private static final NumberFormat format = new DecimalFormat("000000");
-
     /**
      * 添加短信到缓存，有效时间5分钟
      * @param phone
@@ -48,19 +45,24 @@ public class SmsService {
      */
     public void smsStore(String phone, String code, String action){
         String key = String.format("sms%s::%s", action, phone);
-        redisTemplate.opsForValue().set(key, code, Duration.ofMinutes(5));
+        redisTemplate.opsForValue().set(key, code, Duration.ofMinutes(10));
     }
 
     /**
      * 查询短信验证码, 没查到返回空串
      */
     public String smsQuery(String phone, String action){
+
         String key = String.format("sms%s::%s", action, phone);
-        String code = (String) redisTemplate.opsForValue().get(key);
-        if (code == null){
+
+        logger.info(action+" "+phone);
+
+        Long n = (Long) redisTemplate.opsForValue().get(key);
+
+        if (null != n){
+           return n.toString();
+        }else{
             return "";
-        } else {
-            return code;
         }
     }
 
@@ -121,11 +123,8 @@ public class SmsService {
      * 生成6位随机验证码
      */
     public String generateCode(){
-        double d = random.nextDouble();
-        d = d*100000;
-        int i = (int)d;
-        String code = format.format(i);
-        return code;
+        int n = RandomUtil.randomInt(100000,999999);
+        return Integer.toString(n);
     }
 
 }

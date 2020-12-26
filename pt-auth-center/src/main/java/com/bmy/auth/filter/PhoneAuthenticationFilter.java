@@ -1,6 +1,6 @@
 package com.bmy.auth.filter;
 
-import com.bmy.auth.entity.PhoneAuthenticationToken;
+import com.bmy.auth.vo.PhoneAuthenticationToken;
 import com.bmy.core.util.HttpRequestUtil;
 import com.google.gson.Gson;
 import org.slf4j.Logger;

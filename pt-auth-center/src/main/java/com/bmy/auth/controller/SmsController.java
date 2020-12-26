@@ -3,14 +3,12 @@ package com.bmy.auth.controller;
 import cn.hutool.core.lang.Snowflake;
 import cn.jsms.api.SendSMSResult;
 import com.bmy.auth.service.SmsService;
-import com.bmy.auth.vo.SmsRegisterVo;
+import com.bmy.core.vo.PhoneRegVo;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.core.constant.SmsAuthenticated;
 import com.bmy.dao.domain.User;
 import com.bmy.dao.mapper.UserMapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +25,6 @@ import javax.annotation.Resource;
  **/
 @RestController
 @RequestMapping("sms")
-@Api(tags = "手机短信认证接口")
 public class SmsController {
 
     Logger logger = LoggerFactory.getLogger(SmsController.class);
@@ -48,7 +45,6 @@ public class SmsController {
      * @return
      */
     @RequestMapping(value = "send/code", method = RequestMethod.GET)
-    @ApiOperation("发送短信,action字段表示验证码的功能,根据功能的不同会分开存储,目前有login register reset activity,默认值是login")
     public R<Object> send(@RequestParam("phone") String phone,
                           @RequestParam(value = "action",
                           defaultValue = SmsAuthenticated.ACTION.LOGIN) String action){
@@ -58,13 +54,12 @@ public class SmsController {
     }
 
     @PostMapping("register")
-    @ApiOperation("携带短信验证码发起注册")
-    public R<Object> register(@RequestBody @Validated SmsRegisterVo smsRegisterVo,
+    public R<Object> register(@RequestBody @Validated PhoneRegVo phoneRegVo,
                              @RequestParam(value = "action",
                              defaultValue = SmsAuthenticated.ACTION.LOGIN) String action){
-        String phone = smsRegisterVo.getPhone();
-        String password = smsRegisterVo.getPassword();
-        String code = smsRegisterVo.getCode();
+        String phone = phoneRegVo.getPhone();
+        String password = phoneRegVo.getPassword();
+        String code = phoneRegVo.getCode();
 
         logger.info("短信验证码注册 ==> 开始 phone:{}",phone);
         User user = null;

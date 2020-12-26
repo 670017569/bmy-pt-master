@@ -20,12 +20,11 @@ public class R<T> {
     public R(Response response) {
         this.code = response.getCode();
         this.message = response.getMessage();
-        this.data = null;
     }
-    public R(Response response,Object o) {
+    public R(Response response,T o) {
         this.code = response.getCode();
         this.message = response.getMessage();
-        this.data = (T) o;
+        this.data = o;
     }
 
 }

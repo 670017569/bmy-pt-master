@@ -1,7 +1,7 @@
 package com.bmy.auth.component;
 
 
-import com.bmy.auth.entity.PhoneAuthenticationToken;
+import com.bmy.auth.vo.PhoneAuthenticationToken;
 import com.bmy.auth.service.PhoneUserDetailService;
 import com.bmy.core.constant.Response;
 import com.bmy.core.exception.UnAuthorizedException;
@@ -37,7 +37,6 @@ public class PhoneAuthenticationProvider implements AuthenticationProvider {
         }
         return new PhoneAuthenticationToken(user, null, user.getAuthorities());
     }
-
     @Override
     public boolean supports(Class<?> authentication) {
         return PhoneAuthenticationToken.class.isAssignableFrom(authentication);
