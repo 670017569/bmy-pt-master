@@ -1,8 +1,9 @@
 package com.bmy.dao.domain;
 
-import com.google.gson.JsonObject;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -19,20 +20,23 @@ import java.util.Date;
 @Data
 @Builder
 @Table(name = "official_news")
+@AllArgsConstructor
+@NoArgsConstructor
 public class WxOfficialNews implements Serializable {
 
     @Id
     @Column
     private Integer id;
     @Column
+    private String mediaId;//媒体id唯一标识
+    @Column
     private String title;//图文消息的标题
     @Column
     private String thumbUrl;//缩略图
     @Column
     private String url;//图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL
-//    @Column
-//    private int showCoverPic;//是否显示封面，0为false，即不显示，1为true，即显示
-
+    @Column
+    private Date updateTime;
 
 
 }

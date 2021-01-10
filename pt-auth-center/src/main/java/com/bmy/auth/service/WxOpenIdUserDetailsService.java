@@ -2,14 +2,16 @@ package com.bmy.auth.service;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.RandomUtil;
+import com.bmy.auth.common.vo.SecurityUser;
+import com.bmy.auth.common.vo.WxUserSession;
 import com.bmy.auth.config.WxProperties;
-import com.bmy.auth.vo.SecurityUser;
-import com.bmy.auth.vo.WxUserSession;
 import com.bmy.dao.domain.Role;
 import com.bmy.dao.domain.User;
+import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.domain.WxUserInfo;
 import com.bmy.dao.domain.ex.UserRole;
 import com.bmy.dao.mapper.RoleMapper;
+import com.bmy.dao.mapper.UserInfoMapper;
 import com.bmy.dao.mapper.UserMapper;
 import com.bmy.dao.mapper.WxUserInfoMapper;
 import com.bmy.dao.mapper.ex.UserRoleMapper;
@@ -64,6 +66,9 @@ public class WxOpenIdUserDetailsService {
     @Resource
     private RoleMapper roleMapper;
 
+    @Resource
+    private UserInfoMapper userInfoMapper;
+
     /**
      * 传入wxopenid, 用户存在则返回信息
      * @return {@link UserDetails}
@@ -112,22 +117,26 @@ public class WxOpenIdUserDetailsService {
                 wxUserInfoMapper.insertSelective(wxUserInfo);
                 log.info("微信用户信息插入成功");
                 Long id = snowflake.nextId();
-
                 Example example = new Example(Role.class);
                 example.and()
                         .andEqualTo("name","WX_USER");
-
                 Long rid = roleMapper.selectOneByExample(example).getId();
                 UserRole userRole = UserRole.builder().id(id).uid(uid).rid(rid).build();
                 log.info("查找USER角色的rid");
                 userRoleMapper.insert(userRole);
                 log.info("为用户关联角色");
+
+                UserInfo userInfo = UserInfo.builder()
+                        .id(uid)
+                        .username(username)
+                        .build();
+                userInfoMapper.insertSelective(userInfo);
+                log.info("为用户生成详细信息");
             }
         }catch (DuplicateKeyException e){
             log.info("用户信息插入失败:{}",e.toString());
             return null;
         }
-//        User user = userMapper.selectOneByUid(id);
         Example example = new Example(User.class);
         example.and()
                 .andEqualTo("wxOpenid",wxOpenid)

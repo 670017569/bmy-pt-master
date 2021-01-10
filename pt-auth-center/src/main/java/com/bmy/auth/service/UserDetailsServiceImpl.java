@@ -1,6 +1,6 @@
 package com.bmy.auth.service;
 
-import com.bmy.auth.vo.SecurityUser;
+import com.bmy.auth.common.vo.SecurityUser;
 import com.bmy.dao.domain.User;
 import com.bmy.dao.mapper.UserMapper;
 import com.bmy.dao.mapper.ex.UserRoleMapper;

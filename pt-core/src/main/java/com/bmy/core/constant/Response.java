@@ -8,10 +8,13 @@ package com.bmy.core.constant;
  * @Date 2020/12/15 下午10:54
  **/
 public enum Response {
+    INVALID_ACCESS_TOKEN(401,"UnAuthorized"),
     DELETE_SUCCESS(200,"删除成功"),
     DELETE_FAILED(400,"删除失败"),
     QUERY_SUCCESS(200,"查询成功"),
     QUERY_FAILED(406,"查询失败"),
+    SIGN_IN_SUCCESS(200,"签到成功"),
+    SIGN_IN_FAILED(406,"签到失败"),
     REFRESH_SUCCESS(200,"更新成功"),
     REFRESH_FAILED(400,"更新失败"),
     SMS_SEND_SUCCESS(200, "短信发送成功"),

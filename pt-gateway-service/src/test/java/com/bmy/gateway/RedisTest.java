@@ -37,7 +37,7 @@ public class RedisTest {
 
     @Test
     public void test(){
-        OAuth2Authentication  o =  redisTokenStore.readAuthentication("302f05f9-7f22-49a6-8016-b32e9021fd93");
+        OAuth2Authentication  o =  redisTokenStore.readAuthentication("e838256a-55a9-432f-b7b1-42296e0a4dc4");
         System.out.println(o);
     }
 

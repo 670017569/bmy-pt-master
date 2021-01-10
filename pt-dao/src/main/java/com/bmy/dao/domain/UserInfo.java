@@ -1,6 +1,9 @@
 package com.bmy.dao.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -15,32 +18,36 @@ import java.util.Date;
  * @Date 2020/12/25 下午2:13
  **/
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "userinfo")
 public class UserInfo implements Serializable {
 
     @Id
     @Column
-    private Long uid;
-
+    private Long id;
+    @Column
+    private String username;
     @Column
     private String intro;
     @Column
-    private Integer follows;
+    private Long follows;
     @Column
-    private Integer fans;
+    private Long fans;
     @Column
-    private Integer praised;
+    private Long praised;
     @Column
-    private Integer dynamics;
+    private Long dynamics;
     @Column
-    private Integer topics;
+    private Long topics;
     @Column
-    private Integer brick;
+    private Long brick;
     @Column
-    private Integer integration;
+    private Long integration;
     @Column
-    private Integer signTimes;
-    @Column
+    private Long signTimes;
+    @Column(name = "sign_today")
     private Boolean signToday;
     @Column
     private Date lastSignTime;

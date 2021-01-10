@@ -34,9 +34,11 @@
             <artifactId>minio</artifactId>
             <version>3.0.10</version>
         </dependency>
+
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
+            <groupId>com.bmy8</groupId>
+            <artifactId>pt-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>

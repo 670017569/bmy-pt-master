@@ -3,6 +3,8 @@ package com.bmy.auth.controller;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.core.exception.UnAuthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -28,9 +30,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/oauth")
 public class OAuth2Controller {
+    Logger logger = LoggerFactory.getLogger(OAuth2Controller.class);
 
     private final WebResponseExceptionTranslator<OAuth2Exception> exceptionTranslator = new DefaultWebResponseExceptionTranslator();
-
     @Resource
     private TokenEndpoint tokenEndpoint;
 
@@ -39,7 +41,6 @@ public class OAuth2Controller {
 
     @GetMapping("/token")
     public R<Object> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-
         Object o = null;
         try {
             o = tokenEndpoint.getAccessToken(principal, parameters).getBody();
@@ -48,7 +49,6 @@ public class OAuth2Controller {
         }
         return new R<>(Response.LOGIN_SUCCESS,o);
     }
-
     @PostMapping("/token")
     public R<Object> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         Object o = null;
@@ -67,15 +67,14 @@ public class OAuth2Controller {
         }
         return new R<>(Response.LOGIN_SUCCESS,o);
     }
-
     @GetMapping("/check_token")
     public R<Object> checkToken(@RequestParam("token") String value) {
         return new  R<>(Response.CHECK_SUCCESS,checkTokenEndpoint.checkToken(value));
     }
-
     //这里是异常翻译，如果这里不设置，则需要在全局异常处处理
     @ExceptionHandler({Exception.class})
     public ResponseEntity<OAuth2Exception> handleException(Exception e) throws Exception {
         return this.exceptionTranslator.translate(e);
     }
+
 }

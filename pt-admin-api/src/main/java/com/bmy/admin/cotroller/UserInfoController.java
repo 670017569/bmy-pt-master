@@ -10,5 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2020/12/26 上午2:20
  **/
 @RestController
+@Api(tags = "用户详细信息管理接口")
 public class UserInfoController {
+
+
+
 }

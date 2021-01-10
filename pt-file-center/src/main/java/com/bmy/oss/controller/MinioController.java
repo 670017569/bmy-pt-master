@@ -1,11 +1,12 @@
 package com.bmy.oss.controller;
 
-import com.bmy.oss.model.OssFile;
+import com.bmy.core.vo.OssFile;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import io.minio.policy.PolicyType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class MinioController {
     public OssFile uploadOne(MultipartFile file, String bucket, String name) {
         checkBucket(bucket);
         return upload(file, bucket, name);
+
     }
 
     /**

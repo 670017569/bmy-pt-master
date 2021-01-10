@@ -1,8 +1,10 @@
 package com.bmy.auth.config;
 
 import com.bmy.auth.component.PhoneTokenGrantor;
+import com.bmy.auth.component.WxTokenGrantor;
 import com.bmy.auth.service.PhoneUserDetailService;
 import com.bmy.auth.service.UserDetailsServiceImpl;
+import com.bmy.auth.service.WxOpenIdUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -44,7 +46,6 @@ import java.util.List;
 public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     public static final String CLIENT_ID_WECHAT_MINIPROGRAM = "bmy_wechat_mp";
-    public static final String GRANT_TYPE_WX = "wx";
 
     @Resource
     private AuthenticationManager authenticationManager;
@@ -64,6 +65,9 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Resource
     private PhoneUserDetailService phoneUserDetailService;
 
+    @Resource
+    private WxOpenIdUserDetailsService wxOpenIdUserDetailsService;
+
     private TokenGranter tokenGranter;
     private AuthorizationCodeServices authorizationCodeServices;
     private OAuth2RequestFactory requestFactory;
@@ -77,6 +81,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 //                .resourceIds(ResourceServerConfig.RESOURCE_ID)
                 .authorizedGrantTypes("password", "client_credentials", "refresh_token", "wx", "phone")
                 .scopes("bmy")
+//                .redirectUris("http://www.baidu.com")
                 .secret(passwordEncoder.encode("123456"));
     }
 
@@ -104,8 +109,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         tokenService.setSupportRefreshToken(true);
         tokenService.setClientDetailsService(endpoints.getClientDetailsService());
         tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
-        //token有效期 1小时
-        tokenService.setAccessTokenValiditySeconds(3600);
+        //token有效期 1天
+        tokenService.setAccessTokenValiditySeconds(3600*12);
         //token刷新有效期 15天
         tokenService.setRefreshTokenValiditySeconds(3600 * 12 * 15);
         tokenService.setReuseRefreshToken(true);
@@ -114,11 +119,10 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     }
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()") //url:/oauth/token_key,exposes public key for token verification if using JWT tokens
-                .checkTokenAccess("permitAll()") //url:/oauth/check_token allow check token
+        oauthServer.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
-
     /**
      * 重新组装{@link TokenGranter}列表<br/>
      * 新旧授权方式都要创建<br/>
@@ -158,6 +162,12 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 clientDetailsService,
                 requestFactory,
                 phoneUserDetailService));
+        //微信认证
+        tokenGranters.add(new WxTokenGrantor(
+                authorizationServerTokenServices,
+                clientDetailsService,
+                requestFactory,
+                wxOpenIdUserDetailsService));
         return tokenGranters;
     }
 

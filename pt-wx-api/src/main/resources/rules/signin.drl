@@ -1,0 +1,10 @@
+package signin
+import com.bmy.dao.domain.UserInfo
+
+rule "rule_sign_in"
+    when
+        $userInfo:UserInfo(signToday == false)
+    then
+        $userInfo.setSignToday(true);
+        $userInfo.setSignTimes($userInfo.getSignTimes()+1);
+end

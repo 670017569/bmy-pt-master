@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,15 +45,13 @@ public class WxOfficialNewsController {
     @GetMapping("/news/refresh")
     @ApiOperation("从微信小程序服务器更新新闻")
     public R<Object> refresh(Integer count){
-        try {
-            PageHelper.startPage(1,10);
-            if (1 == wxOfficialService.refresh(count)){
-                return new R<>(Response.REFRESH_SUCCESS,new PageInfo<>(wxOfficialNewsMapper.selectAll()));
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        PageHelper.startPage(1,10);
+        int res = wxOfficialService.refresh(count);
+        if (res == 0){
+            return new R<>(200,"数据已经是最新的了");
+        }else {
+            return new R<>(200,"成功更新"+res+"条数据",new PageInfo<>(wxOfficialNewsMapper.selectAll()));
         }
-        return new R<>(Response.REFRESH_FAILED);
     }
 
 

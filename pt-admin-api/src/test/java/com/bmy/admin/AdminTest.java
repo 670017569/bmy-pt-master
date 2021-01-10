@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 /**
  * @ClassName AdminTest
@@ -32,7 +33,10 @@ public class AdminTest {
 
     @Test
     public void test(){
-        System.out.println(wxOfficialService.refresh(10));
+
+        Date date = new Date((long) 1.609394629E9);
+        System.out.println(date);
+//        System.out.println(wxOfficialService.refresh(10));
 //        System.out.println(wxOfficialService.getOfficialNews(10));;
     }
 

@@ -1,5 +1,6 @@
 package com.bmy.admin.cotroller;
 
+import com.bmy.admin.service.AdminLoginService;
 import com.bmy.core.api.AuthenticationApi;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
@@ -31,6 +32,9 @@ import java.util.Optional;
 public class AdminLoginController {
 
     @Resource
+    private AdminLoginService adminLoginService;
+
+    @Resource
     private AuthenticationApi api;
 
     /**
@@ -41,14 +45,19 @@ public class AdminLoginController {
     @ApiOperation("账号密码登录")
     @PostMapping("/login")
     public Object login(@RequestBody UsernameLoginVo usernameLoginVo) throws HttpRequestMethodNotSupportedException {
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("username", Optional.ofNullable(usernameLoginVo.getUsername()).orElse(""));
-        map.add("password", Optional.ofNullable(usernameLoginVo.getPassword()).orElse(""));
-        map.add("grant_type", Optional.ofNullable("password").orElse(""));
-        map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(""));
-        map.add("scope", Optional.ofNullable("bmy").orElse(""));
-        map.add("client_secret", Optional.ofNullable("123456").orElse(""));
-        return api.generateToken(map);
+        try {
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add("username", Optional.ofNullable(usernameLoginVo.getUsername()).orElse(""));
+            map.add("password", Optional.ofNullable(usernameLoginVo.getPassword()).orElse(""));
+            map.add("grant_type", Optional.ofNullable("password").orElse(""));
+            map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(""));
+            map.add("scope", Optional.ofNullable("bmy").orElse(""));
+            map.add("client_secret", Optional.ofNullable("123456").orElse(""));
+            return adminLoginService.login(map);
+        }catch (FeignException e){
+            return new R<>(404,"请求超时");
+        }
+
     }
 
     @GetMapping("/sms/send")

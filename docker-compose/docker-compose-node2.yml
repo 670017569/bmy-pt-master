@@ -1,0 +1,52 @@
+version: '3.3'
+services:
+  pt-auth-center:
+    network_mode: "host"
+    container_name: pt-auth-center
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '9002:9002'
+    build:
+      context: ../pt-auth-center
+      dockerfile: Dockerfile
+  pt-gateway-service:
+    network_mode: "host"
+    container_name: pt-gateway-service
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '9001:9001'
+    build:
+      context: ../pt-gateway-service
+      dockerfile: Dockerfile
+  pt-file-center:
+    network_mode: "host"
+    container_name: pt-file-center
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '9005:9005'
+    build:
+      context: ../pt-file-center
+      dockerfile: Dockerfile
+  pt-wx-api:
+    network_mode: "host"
+    container_name: pt-wx-api
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '9003:9003'
+    build:
+      context: ../pt-wx-api
+      dockerfile: Dockerfile
+  pt-admin-api:
+    network_mode: "host"
+    container_name: pt-admin-api
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '9004:9004'
+    build:
+      context: ../pt-admin-api
+      dockerfile: Dockerfile

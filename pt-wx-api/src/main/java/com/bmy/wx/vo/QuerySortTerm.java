@@ -2,7 +2,6 @@ package com.bmy.wx.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.Map;
 @ApiModel(value = "OrderTerm" ,description = "查询排序方式")
 public class QuerySortTerm {
 
-    @ApiModelProperty(value = "排序方式键值对",name = "sort",example = "{'type':'publish_time','value':'desc'}")
+    @ApiModelProperty(value = "排序方式键值对",name = "sort",example = "{'type':'update_time','value':'desc'}")
     private Map<String,String> sort;
 
 }

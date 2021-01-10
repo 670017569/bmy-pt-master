@@ -1,10 +1,14 @@
 minio:
   access-key: admin
   secret-key: admin123456
-  host: http://localhost:9000
+  host: http://node2.bmy8.xyz:8999
 server:
   port: 9005
 spring:
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
   application:
     name: pt-file-center
   cloud:

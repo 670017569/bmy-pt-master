@@ -63,7 +63,7 @@ public class User  implements Serializable {
      * 逻辑删除 0：未删除 1：已删除
      */
     @Column
-    private Integer deleted;
+    private Boolean deleted;
 
     private List<Role> roles;
 

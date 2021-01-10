@@ -27,10 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private UserDetailsServiceImpl userDetailsService;
-
-    @Resource
-    private LoginSecurityConfigurer loginSecurityConfigurer;
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -42,28 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
-    private static final String[] AUTH_WHITELIST = {
-            // -- swagger ui
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/v2/api-docs",
-            "/webjars/**",
-            "/oauth/**"
-    };
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-            .apply(loginSecurityConfigurer)
-            .and()
+//                .formLogin()
+//                .and()
+//                .authorizeRequests()
+//                .and()
             .authorizeRequests()
             .anyRequest().permitAll();
-
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
