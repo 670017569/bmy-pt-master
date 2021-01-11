@@ -26,6 +26,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="common-auth" />
+    <orderEntry type="module" module-name="common-auth" />
     <orderEntry type="module" module-name="pt-dao" />
     <orderEntry type="library" name="Maven: com.alibaba:druid-spring-boot-starter:1.1.16" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.16" level="project" />

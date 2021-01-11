@@ -1,0 +1,8 @@
+server:
+  port: 9004
+#  应用数据源及数据库连接信息配置
+spring:
+  application:
+    name: pt-admin-api
+  profiles:
+    include: dao-dev,core-dev
