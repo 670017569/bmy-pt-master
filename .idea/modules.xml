@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bmy-pt-master.iml" filepath="$PROJECT_DIR$/.idea/bmy-pt-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-auth/common-auth.iml" filepath="$PROJECT_DIR$/common-auth/common-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/pt-admin-api/pt-admin-api.iml" filepath="$PROJECT_DIR$/pt-admin-api/pt-admin-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/pt-auth-center/pt-auth-center.iml" filepath="$PROJECT_DIR$/pt-auth-center/pt-auth-center.iml" />
       <module fileurl="file://$PROJECT_DIR$/pt-core/pt-core.iml" filepath="$PROJECT_DIR$/pt-core/pt-core.iml" />

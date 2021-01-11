@@ -2,12 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pt-auth-center" />
         <module name="pt-wx-api" />
+        <module name="common-auth" />
         <module name="pt-gateway-service" />
         <module name="pt-core" />
         <module name="pt-file-center" />
@@ -17,6 +19,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bmy-pt-master" target="1.8" />
+      <module name="common-auth" target="8" />
       <module name="pt-admin-api" target="8" />
       <module name="pt-auth-center" target="8" />
       <module name="pt-core" target="1.8" />
