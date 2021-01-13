@@ -1,7 +1,10 @@
 package com.bmy.core.service;
 
 import com.bmy.core.vo.OssFile;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface MinioService {
 
@@ -16,9 +19,13 @@ public interface MinioService {
      * 上传一个文件
      * @param file
      * @param bucket
-     * @param name
      * @return
      */
-    public OssFile upload(MultipartFile file, String bucket, String name);
+    public OssFile upload(MultipartFile file, String bucket);
 
+    public boolean deleteOne(OssFile ossFile);
+
+    public boolean deleteList(List<OssFile> ossFiles);
+
+    boolean isPic(String suffix);
 }

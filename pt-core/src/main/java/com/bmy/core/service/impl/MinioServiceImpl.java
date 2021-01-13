@@ -1,5 +1,6 @@
 package com.bmy.core.service.impl;
 
+import cn.hutool.core.lang.Snowflake;
 import com.bmy.core.service.MinioService;
 import com.bmy.core.vo.OssFile;
 import io.minio.MinioClient;
@@ -18,12 +19,16 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Service
 public class MinioServiceImpl implements MinioService {
 
     @Resource
     private MinioClient minioClient;
+
+    @Resource
+    private Snowflake snowflake;
 
     @Value("${minio.host}")
     private String minioHost;
@@ -44,8 +49,9 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public OssFile upload(MultipartFile file, String bucket, String name) {
+    public OssFile upload(MultipartFile file, String bucket) {
         try {
+            long name = snowflake.nextId();
             InputStream ins = file.getInputStream();                                                    // 输入流
             String originalFilename = file.getOriginalFilename();                                       // 源文件名
             assert originalFilename != null;
@@ -53,7 +59,7 @@ public class MinioServiceImpl implements MinioService {
             String finalname = String.format("%s%s", name, extname);                                    // 最终文件名
             String finalnameUTF_8 = URLEncoder.encode(finalname, "UTF-8");                         // 中文转码以便机器打开
             String url = String.format("%s/%s/%s", minioHost, bucket, finalnameUTF_8);                  // 组装生成url路径
-            Long id = Long.parseLong(name);
+            Long id = Long.parseLong(Long.toString(name));
             OssFile ossFile = OssFile.builder().id(id).filename(finalname).url(url).bucket(bucket).build();
             minioClient.putObject(bucket, finalname, ins, ins.available(), file.getContentType());
             return ossFile;
@@ -63,4 +69,38 @@ public class MinioServiceImpl implements MinioService {
         }
         return null;
     }
+
+    @Override
+    public boolean deleteOne(OssFile ossFile) {
+        try {
+            minioClient.removeObject(ossFile.getBucket(), ossFile.getFilename());
+            return true;
+        } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException e) {
+            logger.error("DELETE ERROR!" + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteList(List<OssFile> ossFiles) {
+        try {
+            for (OssFile ossFile : ossFiles){
+                minioClient.removeObject(ossFile.getBucket(), ossFile.getFilename());
+            }
+            return true;
+        } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException e) {
+            logger.error("DELETE ERROR!" + e.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * 根据文件后缀判断文件类型是否符合要求
+     * @param suffix
+     * @return
+     */
+    public boolean isPic(String suffix){
+        return suffix.equals("jpg") || suffix.equals("jpeg") || suffix.equals("png");
+    }
+
 }

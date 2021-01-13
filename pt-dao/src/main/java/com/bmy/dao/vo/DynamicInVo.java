@@ -1,4 +1,4 @@
-package com.bmy.wx.vo;
+package com.bmy.dao.vo;
 
 
 import com.bmy.dao.domain.ex.DynamicPic;

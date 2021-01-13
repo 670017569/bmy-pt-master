@@ -1,11 +1,10 @@
 package com.bmy.wx.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bmy.core.api.AuthenticationApi;
 import com.bmy.core.constant.R;
-import com.bmy.dao.domain.User;
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.mapper.UserInfoMapper;
+import com.bmy.dao.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,15 +22,16 @@ import java.util.Map;
  * @Date 2020/12/25 下午5:56
  **/
 @Service
-public class UserInfoService {
+public class UserInfoServiceImpl implements UserInfoService {
 
-    Logger logger = LoggerFactory.getLogger(UserInfoService.class);
+    Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Resource
     private UserInfoMapper userInfoMapper;
 
     @Resource
     private AuthenticationApi api;
+
     /**
      * 根据主键查询用户信息
      * @param
@@ -41,7 +41,7 @@ public class UserInfoService {
         String header = request.getHeader("Authorization");
         String token = header.replace("bearer ","");
         R<Object> jsonObject =  api.checkToken(token);
-        Map<String,String> map = (LinkedHashMap<String, String>) jsonObject.getData();
+        Map<String,String> map = (Map<String, String>) jsonObject.getData();
         String username = map.get("user_name");
         Example example = new Example(UserInfo.class);
         example.and()

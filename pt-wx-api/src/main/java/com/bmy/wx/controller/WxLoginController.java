@@ -1,12 +1,9 @@
 package com.bmy.wx.controller;
 
 import com.bmy.core.api.AuthenticationApi;
-import com.bmy.core.constant.R;
-import com.bmy.core.vo.UsernameLoginVo;
 import com.bmy.core.vo.WxAuthInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;

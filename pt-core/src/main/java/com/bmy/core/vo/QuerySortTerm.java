@@ -1,4 +1,4 @@
-package com.bmy.wx.vo;
+package com.bmy.core.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

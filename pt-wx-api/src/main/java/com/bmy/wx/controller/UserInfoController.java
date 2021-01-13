@@ -1,19 +1,13 @@
 package com.bmy.wx.controller;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
-import com.bmy.core.exception.BadRequestException;
-import com.bmy.dao.domain.User;
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.mapper.UserInfoMapper;
-import com.bmy.dao.mapper.UserMapper;
 import com.bmy.wx.drools.RuleService;
-import com.bmy.wx.service.UserInfoService;
-import com.bmy.wx.service.UserService;
+import com.bmy.dao.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,21 +34,19 @@ public class UserInfoController {
     @ApiOperation(value = "获取用户详细信息")
     @GetMapping("/user/info")
     public R<Object> getUserInfo(HttpServletRequest servletRequest){
-        return new R<>(Response.QUERY_SUCCESS,userInfoService.getUserByToken(servletRequest));
+        return new R<>(Response.QUERY_SUCCESS, userInfoService.getUserByToken(servletRequest));
     }
 
-    /**
-     *获取用户账号及角色信息
-     * @param servletRequest
-     * @return
-     */
-    @ApiOperation(value = "获取用户账号及角色信息")
-    @GetMapping("/user/me")
-    public Object checkToken(HttpServletRequest servletRequest){
-        String header = servletRequest.getHeader("Authorization");
-        String token = header.replace("bearer ","");
-        return userInfoService.me(token);
-    }
+//    /**
+//     *获取用户账号及角色信息
+//     * @param servletRequest
+//     * @return
+//     */
+//    @ApiOperation(value = "获取用户账号及角色信息")
+//    @GetMapping("/user/me")
+//    public Object checkToken(HttpServletRequest servletRequest){
+//        return userInfoService.getUserByToken(servletRequest);
+//    }
 
     @GetMapping("/sign")
     @ApiOperation("签到")

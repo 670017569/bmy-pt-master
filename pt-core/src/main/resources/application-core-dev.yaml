@@ -1,7 +1,7 @@
 minio:
   access-key: admin
   secret-key: admin123456
-  host: http://node2.bmy8.xyz:8999
+  host: http://localhost:9000
 spring:
   servlet:
     multipart:

@@ -2,7 +2,8 @@ package com.bmy.wx.service;
 
 import com.bmy.dao.domain.WxOfficialNews;
 import com.bmy.dao.mapper.NewsLinkMapper;
-import com.bmy.wx.vo.QuerySortTerm;
+import com.bmy.dao.service.NewsLinkService;
+import com.bmy.core.vo.QuerySortTerm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ import java.util.Map;
  * @Date 2020/12/23 下午7:49
  **/
 @Service
-public class NewsLinkService {
+public class NewsLinkServiceImpl implements NewsLinkService {
 
-    Logger logger = LoggerFactory.getLogger(NewsLinkService.class);
+    Logger logger = LoggerFactory.getLogger(NewsLinkServiceImpl.class);
 
     @Resource
     private NewsLinkMapper newsLinkMapper;
@@ -33,7 +34,6 @@ public class NewsLinkService {
      */
     public List<WxOfficialNews> selectCategoryPage(QuerySortTerm querySortTerm){
         Example example = new Example(WxOfficialNews.class);
-//        Map<String,String> term = querySortTerm.getTerm();
         Map<String,String> sort = querySortTerm.getSort();
         example.setOrderByClause(sort.get("type")+" "+sort.get("value"));
         return newsLinkMapper.selectByExample(example);

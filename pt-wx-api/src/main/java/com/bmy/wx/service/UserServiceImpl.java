@@ -4,6 +4,7 @@ import com.bmy.core.api.AuthenticationApi;
 import com.bmy.core.constant.R;
 import com.bmy.dao.domain.User;
 import com.bmy.dao.mapper.UserMapper;
+import com.bmy.dao.service.UserService;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -12,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     @Resource
     private AuthenticationApi api;

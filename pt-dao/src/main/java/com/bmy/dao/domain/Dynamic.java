@@ -1,6 +1,7 @@
 package com.bmy.dao.domain;
 
 
+import com.bmy.dao.domain.ex.DynamicPic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,7 +57,7 @@ public class Dynamic {
     @Column
     private Integer deleted;
 
-//    private List<Pic> pics;
+    private List<DynamicPic> pics;
 
 
 
