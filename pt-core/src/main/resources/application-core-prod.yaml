@@ -1,4 +1,12 @@
+minio:
+  access-key: admin
+  secret-key: admin123456
+  host: http://node2.bmy8.xyz:8999
 spring:
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
   rabbitmq:
     host: localhost
     port: 5672

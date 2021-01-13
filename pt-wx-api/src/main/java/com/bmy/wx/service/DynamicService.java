@@ -1,10 +1,8 @@
 package com.bmy.wx.service;
 
 import cn.hutool.core.lang.Snowflake;
-import com.bmy.dao.domain.Pic;
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.domain.ex.DynamicPic;
-import com.bmy.dao.mapper.PicMapper;
 import com.bmy.dao.mapper.ex.DynamicPicMapper;
 import com.bmy.wx.vo.DynamicInVo;
 import com.bmy.dao.domain.Dynamic;
@@ -22,9 +20,6 @@ public class DynamicService {
     Logger logger = LoggerFactory.getLogger(DynamicService.class);
 
     @Resource
-    private PicMapper picMapper;
-
-    @Resource
     private DynamicMapper dynamicMapper;
 
     @Resource
@@ -38,10 +33,10 @@ public class DynamicService {
      * 并带上动态所有图片的链接
      * @return
      */
-    public List<Dynamic> selectAllByUid(Long uid){
-        List<Dynamic> list = dynamicMapper.selectAllDynamicByUid(uid);
-        return list;
-    }
+//    public List<Dynamic> selectAllByUid(Long uid){
+//        List<Dynamic> list = dynamicMapper.selectAllDynamicByUid(uid);
+//        return list;
+//    }
 
     /**
      * 查询所有动态
@@ -66,17 +61,17 @@ public class DynamicService {
                 .content(dynamicVo.getContent())
                 .region(dynamicVo.getRegion())
                 .build();
-        List<Pic> pics = dynamicVo.getPics();
+        List<DynamicPic> pics = dynamicVo.getPics();
         //将动态插入表中
         Integer res = dynamicMapper.insertSelective(dynamic);
         //将上传的图片插入pic表中
-        for (Pic pic : pics){
-            int r = picMapper.insertSelective(pic);
+        for (DynamicPic pic : pics){
+            int r = dynamicPicMapper.insertSelective(pic);
             if (r == 1) {
                 DynamicPic dynamicPic = DynamicPic.builder()
-                        .id(snowflake.nextId())
-                        .picId(pic.getId())
+                        .id(pic.getId())
                         .dynId(id)
+                        .url(pic.getUrl())
                         .build();
                 //将图片和动态的id插入关系表中
                 dynamicPicMapper.insertSelective(dynamicPic);

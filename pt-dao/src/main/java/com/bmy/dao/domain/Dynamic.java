@@ -56,7 +56,7 @@ public class Dynamic {
     @Column
     private Integer deleted;
 
-    private List<Pic> pics;
+//    private List<Pic> pics;
 
 
 

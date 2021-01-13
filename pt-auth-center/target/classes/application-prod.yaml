@@ -1,9 +1,0 @@
-server:
-  port: 9002
-#  应用数据源及数据库连接信息配置
-spring:
-  application:
-    name: pt-auth-center
-  profiles:
-    include: dao-prod,core-prod
-

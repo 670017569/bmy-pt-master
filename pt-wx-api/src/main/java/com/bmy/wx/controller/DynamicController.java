@@ -33,12 +33,12 @@ public class DynamicController {
     @Resource
     private UserInfoService userInfoService;
 
-    @ApiOperation("根据uid分页获取动态自己的动态（动态管理）")
-    @GetMapping("/user/dynamics")
-    public R<Object> getDynamicsByUid(Integer page, Integer size, Long uid){
-        PageHelper.startPage(page,size);
-        return R.success(Response.QUERY_SUCCESS,new PageInfo<>(dynamicService.selectAllByUid(uid)));
-    }
+//    @ApiOperation("根据uid分页获取动态自己的动态（动态管理）")
+//    @GetMapping("/user/dynamics")
+//    public R<Object> getDynamicsByUid(Integer page, Integer size, Long uid){
+//        PageHelper.startPage(page,size);
+//        return R.success(Response.QUERY_SUCCESS,new PageInfo<>(dynamicService.selectAllByUid(uid)));
+//    }
 
     @ApiOperation("分页获取动态所有动态")
     @GetMapping("dynamics")

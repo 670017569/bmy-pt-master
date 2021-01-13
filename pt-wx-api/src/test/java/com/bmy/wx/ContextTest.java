@@ -46,7 +46,7 @@ public class ContextTest {
     @Test
     public void test(){
 
-        System.out.println(dynamicMapper.selectAllDynamicByUid(Long.parseLong("1")));
+        System.out.println();
     }
 
 }

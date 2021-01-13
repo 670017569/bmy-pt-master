@@ -23,7 +23,6 @@ public class DynamicPic {
     private Long dynId;
 
     @Column
-    private Long picId;
-
+    private String url;
 
 }

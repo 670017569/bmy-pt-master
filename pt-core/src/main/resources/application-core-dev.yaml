@@ -1,10 +1,18 @@
+minio:
+  access-key: admin
+  secret-key: admin123456
+  host: http://node2.bmy8.xyz:8999
 spring:
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
   redis:
-    host: node2.bmy8.xyz
+    host: localhost
     port: 6379
     database: 3
     timeout: 5000

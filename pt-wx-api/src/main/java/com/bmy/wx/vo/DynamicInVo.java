@@ -1,7 +1,7 @@
 package com.bmy.wx.vo;
 
 
-import com.bmy.dao.domain.Pic;
+import com.bmy.dao.domain.ex.DynamicPic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +23,6 @@ public class DynamicInVo {
 
     //图片
     @ApiModelProperty("图片数组")
-    private List<Pic> pics;
+    private List<DynamicPic> pics;
 
 }

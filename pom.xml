@@ -13,7 +13,6 @@
         <module>pt-core</module>
         <module>pt-auth-center</module>
         <module>pt-wx-api</module>
-        <module>pt-file-center</module>
         <module>pt-admin-api</module>
         <module>pt-gateway-service</module>
         <module>common-auth</module>
@@ -103,6 +102,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.4.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>20.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
