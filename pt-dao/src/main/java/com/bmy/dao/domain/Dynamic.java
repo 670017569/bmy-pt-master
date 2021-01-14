@@ -2,10 +2,8 @@ package com.bmy.dao.domain;
 
 
 import com.bmy.dao.domain.ex.DynamicPic;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -39,7 +37,7 @@ public class Dynamic {
 
     //点赞数
     @Column
-    private Integer praised;
+    private Integer praises;
 
     //点击数
     @Column
@@ -57,8 +55,22 @@ public class Dynamic {
     @Column
     private Integer deleted;
 
+    @Transient
     private List<DynamicPic> pics;
 
+    @Transient
+    private boolean isPraised;
+
+    @Transient
+    private WxUserInfo wxUserInfo;
+
+    public boolean getPraised() {
+        return isPraised;
+    }
+
+    public void setIsPraised(boolean praised) {
+        isPraised = praised;
+    }
 
 
 }

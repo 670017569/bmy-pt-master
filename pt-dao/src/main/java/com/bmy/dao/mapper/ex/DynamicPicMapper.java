@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface DynamicPicMapper extends Mapper<DynamicPic> {
 
+    @Select("select * from dynamic_pic where dyn_id = #{dynId}")
+    public List<DynamicPic> selectByDynId(Long dynId);
+
 }

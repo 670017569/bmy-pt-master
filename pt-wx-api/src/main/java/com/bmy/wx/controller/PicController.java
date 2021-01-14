@@ -3,8 +3,8 @@ package com.bmy.wx.controller;
 import cn.hutool.core.io.FileUtil;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
-import com.bmy.core.service.MinioService;
-import com.bmy.core.vo.OssFile;
+import com.bmy.dao.service.MinioService;
+import com.bmy.dao.dto.OssFileDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -41,8 +41,8 @@ public class PicController {
             return R.fail(406,"图片大小超过限制");
         }else {
             minioService.checkBucket("pic");
-            OssFile ossFile = minioService.upload(file, "pic");
-            return R.success(200,"上传成功", ossFile);
+            OssFileDTO ossFileDTO = minioService.upload(file, "pic");
+            return R.success(200,"上传成功", ossFileDTO);
         }
     }
 
@@ -68,11 +68,11 @@ public class PicController {
                 return R.fail(406,"图片大小超过限制");
             }
         }
-        List<OssFile> pics = new ArrayList<>();
+        List<OssFileDTO> pics = new ArrayList<>();
         for (MultipartFile file: files){
-            OssFile ossFile = minioService.upload(file, "pic");
+            OssFileDTO ossFileDTO = minioService.upload(file, "pic");
 
-            pics.add(ossFile);
+            pics.add(ossFileDTO);
         }
         return R.success(200,"上传成功",pics);
     }
@@ -82,8 +82,8 @@ public class PicController {
      */
     @ApiOperation("删除单张图片")
     @DeleteMapping("/pic")
-    public R<Object> deleteOne(@RequestBody OssFile ossFile) {
-        return R.success(Response.DELETE_SUCCESS,minioService.deleteOne(ossFile));
+    public R<Object> deleteOne(@RequestBody OssFileDTO ossFileDTO) {
+        return R.success(Response.DELETE_SUCCESS,minioService.deleteOne(ossFileDTO));
     }
 
 
@@ -93,8 +93,8 @@ public class PicController {
      */
     @ApiOperation("删除一组图片")
     @DeleteMapping("delete_list")
-    public R<Object> deleteList(@RequestBody List<OssFile> ossFiles) {
-        return R.success(Response.DELETE_SUCCESS,minioService.deleteList(ossFiles));
+    public R<Object> deleteList(@RequestBody List<OssFileDTO> ossFileDTOS) {
+        return R.success(Response.DELETE_SUCCESS,minioService.deleteList(ossFileDTOS));
     }
 
 

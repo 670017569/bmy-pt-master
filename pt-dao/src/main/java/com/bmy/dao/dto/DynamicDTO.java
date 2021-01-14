@@ -1,7 +1,6 @@
-package com.bmy.dao.vo;
+package com.bmy.dao.dto;
 
 
-import com.bmy.dao.domain.ex.DynamicPic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Data
 @ApiModel(value = "动态参数模型")
-public class DynamicInVo {
+public class DynamicDTO {
 
 
     //定位信息
@@ -23,6 +22,6 @@ public class DynamicInVo {
 
     //图片
     @ApiModelProperty("图片数组")
-    private List<DynamicPic> pics;
+    private List<OssFileDTO> pics;
 
 }

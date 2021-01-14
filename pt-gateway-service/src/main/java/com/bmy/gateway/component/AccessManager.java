@@ -42,6 +42,7 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
         permitAll.add("/webjars/**");
         permitAll.add("/swagger-ui.html");
         permitAll.add("/**/auth/**");
+        permitAll.add("/wx/news");
     }
 
     /**

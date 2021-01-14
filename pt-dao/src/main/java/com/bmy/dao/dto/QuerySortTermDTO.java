@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,7 @@ import java.util.Map;
  **/
 @Data
 @ApiModel(value = "OrderTerm" ,description = "查询排序方式")
-public class QuerySortTerm {
+public class QuerySortTermDTO {
 
     @ApiModelProperty(value = "排序方式键值对",name = "sort",example = "{'type':'update_time','value':'desc'}")
     private Map<String,String> sort;

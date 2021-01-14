@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.Data;
 @ApiModel("对象存储模型")
 @Data
 @Builder
-public class OssFile {
+public class OssFileDTO {
 
     private Long id;
 

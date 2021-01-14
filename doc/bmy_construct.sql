@@ -118,7 +118,7 @@ CREATE TABLE `click`  (
 -- ----------------------------
 -- Table structure for comment
 -- ----------------------------
-DROP TABLE IF EXISTS `comment`;
+DROP TABLE IF EXISTS comment;
 CREATE TABLE `comment`  (
   `cmid` bigint(0) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `userid` bigint(0) NULL DEFAULT NULL COMMENT 'FK',

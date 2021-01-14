@@ -38,5 +38,7 @@ public class WxOfficialNews implements Serializable {
     @Column
     private Date updateTime;
 
+    @Column
+    private String digest;
 
 }

@@ -1,4 +1,4 @@
-package signin
+package userInfo
 import com.bmy.dao.domain.UserInfo
 
 rule "rule_sign_in"
@@ -7,4 +7,12 @@ rule "rule_sign_in"
     then
         $userInfo.setSignToday(true);
         $userInfo.setSignTimes($userInfo.getSignTimes()+1);
+end
+
+rule "praise"
+
+    when
+
+    then
+
 end

@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Date 2020/12/26 下午12:19
  **/
 @Data
-public class UsernameLoginVo {
+public class UsernameLoginDTO {
 
     private String username;
 

@@ -5,9 +5,9 @@ import com.bmy.core.api.AuthenticationApi;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.core.constant.SmsAuthenticated;
-import com.bmy.core.vo.PhonePwdLoginVo;
-import com.bmy.core.vo.PhoneSmsLoginVo;
-import com.bmy.core.vo.UsernameLoginVo;
+import com.bmy.dao.dto.PhonePwdLoginDTO;
+import com.bmy.dao.dto.PhoneSmsLoginDTO;
+import com.bmy.dao.dto.UsernameLoginDTO;
 import feign.FeignException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,11 +44,11 @@ public class AdminLoginController {
      */
     @ApiOperation("账号密码登录")
     @PostMapping("/login")
-    public Object login(@RequestBody UsernameLoginVo usernameLoginVo) throws HttpRequestMethodNotSupportedException {
+    public Object login(@RequestBody UsernameLoginDTO usernameLoginDTO) throws HttpRequestMethodNotSupportedException {
         try {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-            map.add("username", Optional.ofNullable(usernameLoginVo.getUsername()).orElse(""));
-            map.add("password", Optional.ofNullable(usernameLoginVo.getPassword()).orElse(""));
+            map.add("username", Optional.ofNullable(usernameLoginDTO.getUsername()).orElse(""));
+            map.add("password", Optional.ofNullable(usernameLoginDTO.getPassword()).orElse(""));
             map.add("grant_type", Optional.ofNullable("password").orElse(""));
             map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(""));
             map.add("scope", Optional.ofNullable("bmy").orElse(""));
@@ -69,10 +69,10 @@ public class AdminLoginController {
 
     @ApiOperation("短信验证码登录")
     @PostMapping("/sms/login")
-    public Object smslogin( @Validated @RequestBody PhoneSmsLoginVo phoneSmsLoginVo) throws HttpRequestMethodNotSupportedException {
+    public Object smslogin( @Validated @RequestBody PhoneSmsLoginDTO phoneSmsLoginDTO) throws HttpRequestMethodNotSupportedException {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("phone", Optional.ofNullable(phoneSmsLoginVo.getPhone()).orElse(""));
-        map.add("code", Optional.ofNullable(phoneSmsLoginVo.getCode()).orElse(""));
+        map.add("phone", Optional.ofNullable(phoneSmsLoginDTO.getPhone()).orElse(""));
+        map.add("code", Optional.ofNullable(phoneSmsLoginDTO.getCode()).orElse(""));
         map.add("grant_type", Optional.ofNullable("phone").orElse(""));
         map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(" "));
         map.add("scope", Optional.ofNullable("bmy").orElse(""));
@@ -89,10 +89,10 @@ public class AdminLoginController {
 
     @ApiOperation("手机密码登录")
     @PostMapping("/phone/login")
-    public Object phoneLogin(@Validated @RequestBody PhonePwdLoginVo phonePwdLoginVo) throws HttpRequestMethodNotSupportedException {
+    public Object phoneLogin(@Validated @RequestBody PhonePwdLoginDTO phonePwdLoginDTO) throws HttpRequestMethodNotSupportedException {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("phone", Optional.ofNullable(phonePwdLoginVo.getPhone()).orElse(""));
-        map.add("password", Optional.ofNullable(phonePwdLoginVo.getPassword()).orElse(""));
+        map.add("phone", Optional.ofNullable(phonePwdLoginDTO.getPhone()).orElse(""));
+        map.add("password", Optional.ofNullable(phonePwdLoginDTO.getPassword()).orElse(""));
         map.add("grant_type", Optional.ofNullable("phone").orElse(""));
         map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(" "));
         map.add("scope", Optional.ofNullable("bmy").orElse(""));

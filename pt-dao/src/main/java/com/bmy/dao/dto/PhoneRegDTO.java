@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Date 2020/12/18 上午12:57
  **/
 @Data
-public class PhoneRegVo {
+public class PhoneRegDTO {
 
     private String phone;
 

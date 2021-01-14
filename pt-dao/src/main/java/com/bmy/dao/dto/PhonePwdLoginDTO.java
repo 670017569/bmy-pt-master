@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +12,7 @@ import lombok.Data;
  **/
 @Data
 @ApiModel("手机密码登录数据模型")
-public class PhonePwdLoginVo {
+public class PhonePwdLoginDTO {
 
     @ApiModelProperty(value = "phone",name = "手机号",required = true)
     private String phone;

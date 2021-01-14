@@ -1,4 +1,4 @@
-package com.bmy.core.vo;
+package com.bmy.dao.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import lombok.Data;
  **/
 @Data
 @ApiModel(description = "微信认证类",value = "WxAuthInfo")
-public class WxAuthInfo {
+public class WxAuthInfoDTO {
     /**
      * 微信认证授权码
      */

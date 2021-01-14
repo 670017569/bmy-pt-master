@@ -4,7 +4,7 @@ import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.dao.domain.WxOfficialNews;
 import com.bmy.dao.service.NewsLinkService;
-import com.bmy.core.vo.QuerySortTerm;
+import com.bmy.dao.dto.QuerySortTermDTO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -35,16 +35,16 @@ public class WxOfficialNewsController {
      * 根据查询条件和排序方式查询新闻
      * @param page
      * @param size
-     * @param querySortTerm
+     * @param querySortTermDTO
      * @return
      */
     @ApiOperation("根据查询条件和排序方式查询新闻")
     @PostMapping("/news")
     private R<PageInfo<WxOfficialNews>> getNewsPage(@ApiParam("页码") @RequestParam(name = "page",defaultValue = "1") Integer page ,
                                                     @ApiParam("分页大小") @RequestParam(name = "size",defaultValue = "10") Integer size ,
-                                                    @ApiParam("查询条件及排序方式") @RequestBody(required = false) QuerySortTerm querySortTerm){
+                                                    @ApiParam("查询条件及排序方式") @RequestBody(required = false) QuerySortTermDTO querySortTermDTO){
         PageHelper.startPage(page,size);
-        return new R<>(Response.QUERY_SUCCESS,new PageInfo<>(newsLinkService.selectCategoryPage(querySortTerm)));
+        return new R<>(Response.QUERY_SUCCESS,new PageInfo<>(newsLinkService.selectCategoryPage(querySortTermDTO)));
     }
 
 

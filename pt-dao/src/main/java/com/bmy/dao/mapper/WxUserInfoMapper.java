@@ -1,6 +1,7 @@
 package com.bmy.dao.mapper;
 
 import com.bmy.dao.domain.WxUserInfo;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -12,4 +13,9 @@ import tk.mybatis.mapper.common.Mapper;
  **/
 @Repository
 public interface WxUserInfoMapper extends Mapper<WxUserInfo> {
+
+    @Override
+    @Select("select * from wx_userinfo where uid = #{key}")
+    WxUserInfo selectByPrimaryKey(Object key);
+
 }

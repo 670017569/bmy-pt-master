@@ -1,5 +1,6 @@
 package com.bmy.wx;
 
+import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.mapper.NewsLinkMapper;
 import com.bmy.dao.mapper.UserInfoMapper;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 
@@ -43,8 +45,7 @@ public class ContextTest {
 
     @Test
     public void test(){
-
-        System.out.println();
+        System.out.println(dynamicMapper.selectByPrimaryKey(1));
     }
 
 }

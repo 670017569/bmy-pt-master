@@ -3,7 +3,7 @@ package com.bmy.auth.controller;
 import cn.hutool.core.lang.Snowflake;
 import cn.jsms.api.SendSMSResult;
 import com.bmy.auth.service.SmsService;
-import com.bmy.core.vo.PhoneRegVo;
+import com.bmy.dao.dto.PhoneRegDTO;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.core.constant.SmsAuthenticated;
@@ -54,12 +54,12 @@ public class SmsController {
     }
 
     @PostMapping("register")
-    public R<Object> register(@RequestBody @Validated PhoneRegVo phoneRegVo,
+    public R<Object> register(@RequestBody @Validated PhoneRegDTO phoneRegDTO,
                              @RequestParam(value = "action",
                              defaultValue = SmsAuthenticated.ACTION.LOGIN) String action){
-        String phone = phoneRegVo.getPhone();
-        String password = phoneRegVo.getPassword();
-        String code = phoneRegVo.getCode();
+        String phone = phoneRegDTO.getPhone();
+        String password = phoneRegDTO.getPassword();
+        String code = phoneRegDTO.getCode();
 
         logger.info("短信验证码注册 ==> 开始 phone:{}",phone);
         User user = null;

@@ -67,6 +67,7 @@ public class OAuth2Controller {
         }
         return new R<>(Response.LOGIN_SUCCESS,o);
     }
+
     @GetMapping("/check_token")
     public R<Object> checkToken(@RequestParam("token") String value) {
         return new  R<>(Response.CHECK_SUCCESS,checkTokenEndpoint.checkToken(value));

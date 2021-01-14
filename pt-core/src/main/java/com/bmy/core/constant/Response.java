@@ -8,7 +8,15 @@ package com.bmy.core.constant;
  * @Date 2020/12/15 下午10:54
  **/
 public enum Response {
+    PUBLISH_SUCCESS(200,"发布成功"),
+    COMMENT_SUCCESS(200,"评论成功"),
+    COMMENT_FAILED(406,"评论失败"),
+    PUBLISH_FAILED(407,"发布失败，请稍后再试"),
+    DYNAMIC_PUBLISH_SUCCESS(200,"动态发布成功"),
     PRAISE_SUCCESS(200,"点赞成功"),
+    PRAISE_CANCEL_SUCCESS(200,"取消点赞成功"),
+    PRAISE_CANCEL_FAILED(200,"取消点赞失败"),
+    PRAISE_FAILED(406,"请勿重复点赞"),
     INVALID_ACCESS_TOKEN(401,"UnAuthorized"),
     DELETE_SUCCESS(200,"删除成功"),
     DELETE_FAILED(400,"删除失败"),

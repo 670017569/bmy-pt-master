@@ -103,7 +103,9 @@ public class  WxOfficialService {
                     json = (JSONObject) arr.get(0);
                     WxOfficialNews wxOfficialNews = WxOfficialNews.builder()
                             .title(json.getString("title"))
+                            .digest(json.getString("digest"))
                             .updateTime(updateTime)
+                            .url(json.getString("url").replace("http://","https://"))
                             .url(json.getString("url"))
                             .mediaId(mediaId)
                             .thumbUrl(json.getString("thumb_url"))

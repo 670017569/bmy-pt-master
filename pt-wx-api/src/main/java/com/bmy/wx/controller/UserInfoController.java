@@ -37,17 +37,16 @@ public class UserInfoController {
         return new R<>(Response.QUERY_SUCCESS, userInfoService.getUserByToken(servletRequest));
     }
 
-//    /**
-//     *获取用户账号及角色信息
-//     * @param servletRequest
-//     * @return
-//     */
-//    @ApiOperation(value = "获取用户账号及角色信息")
-//    @GetMapping("/user/me")
-//    public Object checkToken(HttpServletRequest servletRequest){
-//        return userInfoService.getUserByToken(servletRequest);
-//    }
-
+    /**
+     *获取用户账号及角色信息
+     * @param servletRequest
+     * @return
+     */
+    @ApiOperation(value = "获取用户账号及角色信息")
+    @GetMapping("/user/me")
+    public Object checkToken(HttpServletRequest servletRequest){
+        return userInfoService.me(servletRequest);
+    }
     @GetMapping("/sign")
     @ApiOperation("签到")
     public R<Object> rule(HttpServletRequest servletRequest){
@@ -63,7 +62,5 @@ public class UserInfoController {
         }
         return new R<>(Response.UPDATE_FAIL);
     }
-
-
 
 }

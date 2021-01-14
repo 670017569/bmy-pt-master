@@ -20,16 +20,6 @@ services:
     build:
       context: ../pt-gateway-service
       dockerfile: Dockerfile
-  pt-file-center:
-    network_mode: "host"
-    container_name: pt-file-center
-    environment:
-      TZ: Asia/Shanghai
-    ports:
-      - '9005:9005'
-    build:
-      context: ../pt-file-center
-      dockerfile: Dockerfile
   pt-wx-api:
     network_mode: "host"
     container_name: pt-wx-api

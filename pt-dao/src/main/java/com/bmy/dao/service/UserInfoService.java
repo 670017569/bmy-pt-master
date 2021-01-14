@@ -8,5 +8,7 @@ public interface UserInfoService {
 
     public UserInfo getUserByToken(HttpServletRequest request);
 
+    public Object me(HttpServletRequest request);
 
+    public boolean updateUserInfo(UserInfo userInfo);
 }

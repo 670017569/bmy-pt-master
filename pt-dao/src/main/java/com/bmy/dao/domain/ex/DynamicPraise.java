@@ -1,4 +1,4 @@
-package com.bmy.dao.domain;
+package com.bmy.dao.domain.ex;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,42 +10,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "comment")
-public class Comment {
+@Table(name = "dynamic_praise")
+public class DynamicPraise {
 
-    //评论id
     @Id
     @Column
     private Long id;
 
-
-    //用户id
     @Column
     private Long uid;
 
     @Column
-    private Long toUid;
-
-    //动态id
-    @Column
     private Long dynId;
 
-    //内容
-    @Column
-    private String content;
+    @Column(name = "praise_time")
+    private Date praiseTime;
 
-    //逻辑删除
-    @Column
-    private Boolean deleted;
-
-    //发表时间
-    @Column
-    private Date publishTime;
+    @Column(name = "canceled")
+    private Boolean canceled;
 
 
 }

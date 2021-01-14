@@ -1,6 +1,6 @@
 package com.bmy.auth.common.vo;
 
-import com.bmy.core.vo.WxAuthInfo;
+import com.bmy.dao.dto.WxAuthInfoDTO;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -18,7 +18,7 @@ public class WxAuthenticationToken extends AbstractAuthenticationToken  implemen
     // 序列化号和Security版本一致, 更换Security版本可能会导致token失效
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
     /**
-     * <p>未验证时存放{@link WxAuthInfo}</p>
+     * <p>未验证时存放{@link WxAuthInfoDTO}</p>
      * <p>验证成功后存放{@link org.springframework.security.core.userdetails.UserDetails}</p>
      */
     private final Object principal;
