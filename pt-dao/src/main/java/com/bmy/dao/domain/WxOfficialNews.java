@@ -1,5 +1,6 @@
 package com.bmy.dao.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class WxOfficialNews implements Serializable {
 
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Integer id;
     @Column
     private String mediaId;//媒体id唯一标识

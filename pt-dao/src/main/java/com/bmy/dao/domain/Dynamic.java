@@ -2,6 +2,7 @@ package com.bmy.dao.domain;
 
 
 import com.bmy.dao.domain.ex.DynamicPic;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Transient;
 
@@ -21,10 +22,12 @@ public class Dynamic {
     //动态id
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     //用户id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long uid;
 
     //定位信息

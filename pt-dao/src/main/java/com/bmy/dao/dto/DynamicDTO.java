@@ -1,6 +1,7 @@
 package com.bmy.dao.dto;
 
 
+import com.bmy.dao.domain.OssFile;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

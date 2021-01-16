@@ -8,6 +8,8 @@ package com.bmy.core.constant;
  * @Date 2020/12/15 下午10:54
  **/
 public enum Response {
+    LOAD_SUCCESS(200,"加载成功"),
+    LOAD_FAILED(406,"加载失败"),
     PUBLISH_SUCCESS(200,"发布成功"),
     COMMENT_SUCCESS(200,"评论成功"),
     COMMENT_FAILED(406,"评论失败"),

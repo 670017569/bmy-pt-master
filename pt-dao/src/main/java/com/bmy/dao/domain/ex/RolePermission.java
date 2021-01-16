@@ -1,5 +1,6 @@
 package com.bmy.dao.domain.ex;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -18,12 +19,15 @@ public class RolePermission {
 
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long rid;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long pid;
 
 }

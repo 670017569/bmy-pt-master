@@ -1,5 +1,6 @@
 package com.bmy.dao.domain.ex;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,12 +21,15 @@ public class UserRole {
 
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long uid;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long rid;
 
 }

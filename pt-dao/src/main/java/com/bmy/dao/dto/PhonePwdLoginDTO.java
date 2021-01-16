@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @ClassName PhonePwdLoginVo
  * @Description TODO
@@ -15,8 +17,10 @@ import lombok.Data;
 public class PhonePwdLoginDTO {
 
     @ApiModelProperty(value = "phone",name = "手机号",required = true)
+    @NotNull
     private String phone;
 
+    @NotNull
     @ApiModelProperty(value = "password",name = "密码",required = true)
     private String password;
 

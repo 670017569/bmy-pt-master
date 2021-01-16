@@ -3,9 +3,9 @@ package com.bmy.wx.service;
 import cn.hutool.core.lang.Snowflake;
 import com.bmy.core.constant.Response;
 import com.bmy.core.exception.BadRequestException;
-import com.bmy.dao.dto.OssFileDTO;
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.domain.ex.DynamicPic;
+import com.bmy.dao.dto.OssFileDTO;
 import com.bmy.dao.mapper.ex.DynamicPicMapper;
 import com.bmy.dao.service.DynamicPraiseService;
 import com.bmy.dao.service.DynamicService;
@@ -13,8 +13,6 @@ import com.bmy.dao.service.UserInfoService;
 import com.bmy.dao.dto.DynamicDTO;
 import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.mapper.DynamicMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -25,7 +23,6 @@ import java.util.List;
 @Service
 public class DynamicServiceImpl implements DynamicService {
 
-    Logger logger = LoggerFactory.getLogger(DynamicServiceImpl.class);
 
     @Resource
     private DynamicMapper dynamicMapper;
@@ -58,7 +55,7 @@ public class DynamicServiceImpl implements DynamicService {
      * @param dynamicVo
      * @return
      */
-    public boolean pubDynamic(DynamicDTO dynamicVo, UserInfo userInfo){
+    public Dynamic pubDynamic(DynamicDTO dynamicVo, UserInfo userInfo){
         try {
             //生成一个id
             Long id = snowflake.nextId();
@@ -78,14 +75,14 @@ public class DynamicServiceImpl implements DynamicService {
                     dynamicPicMapper.insertSelective(dynamicPic);
                 }
             }else {
-                return false;
+                return null;
             }
             //插入成功后userinfo中的动态字段+1
             userInfo.setDynamics(userInfo.getDynamics()+1);
             userInfoService.updateUserInfo(userInfo);
-            return true;
+            return dynamicMapper.selectByPrimaryKey(id);
         }catch (DuplicateKeyException e){
-            return false;
+            return null;
         }
     }
     /**

@@ -1,4 +1,5 @@
 package com.bmy.dao.domain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Role implements Serializable {
      * 主键id
      */
     @Id
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
     private Long id;
 
@@ -21,6 +23,7 @@ public class Role implements Serializable {
      * 父节点id
      */
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long parentId;
 
     /**

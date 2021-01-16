@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmy.dao.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.bmy.dao.domain.Comment">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="content" property="content" />
+        <result column="publish_time" property="publishTime" />
+        <result column="deleted" property="deleted" />
+        <result column="pid" property="pid" />
+        <result column="dyn_id" property="dynId" />
+        <result column="to_uid" property="toUid" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
+        id,uid,content,publish_time,pid,deleted,dyn_id,to_uid
+    </sql>
+    <resultMap id="dynamicComment" extends="BaseResultMap" type="com.bmy.dao.domain.Comment">
+        <association property="sonComment" javaType="Integer" column="id" select="com.bmy.dao.mapper.CommentMapper.selectCountByPid"/>
+        <association property="wxUserInfo" javaType="com.bmy.dao.domain.WxUserInfo" column="uid" select="com.bmy.dao.mapper.WxUserInfoMapper.selectByPrimaryKey" />
+    </resultMap>
+    <resultMap id="dynamicCommentSon" extends="dynamicComment" type="com.bmy.dao.domain.Comment">
+        <association property="toWxUser" javaType="com.bmy.dao.domain.WxUserInfo" column="to_uid" select="com.bmy.dao.mapper.WxUserInfoMapper.selectByPrimaryKey" />
+    </resultMap>
+    <select id="selectByDynId" resultMap="dynamicComment">
+        select * from bmy.comment where dyn_id = #{dynId} and deleted = 0 and to_uid is null order by publish_time desc
+    </select>
+    <select id="selectByPid" resultMap="dynamicCommentSon">
+        select * from bmy.comment where pid=#{pid} and deleted = 0 and to_uid is not null order by publish_time desc
+    </select>
+    <select id="selectCountByPid" resultType="Integer" >
+        select count(1) from bmy.comment where pid = #{id}
+    </select>
+    <select id="selectByPrimaryKey" resultMap="dynamicCommentSon">
+        select * from bmy.comment where id = #{key}
+    </select>
+</mapper>

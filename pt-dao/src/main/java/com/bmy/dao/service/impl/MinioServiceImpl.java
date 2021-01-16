@@ -1,7 +1,7 @@
 package com.bmy.dao.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
-import com.bmy.dao.dto.OssFileDTO;
+import com.bmy.dao.domain.OssFile;
 import com.bmy.dao.service.MinioService;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -49,7 +49,7 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public OssFileDTO upload(MultipartFile file, String bucket) {
+    public OssFile upload(MultipartFile file, String bucket) {
         try {
             long name = snowflake.nextId();
             InputStream ins = file.getInputStream();                                                    // 输入流
@@ -60,9 +60,9 @@ public class MinioServiceImpl implements MinioService {
             String finalnameUTF_8 = URLEncoder.encode(finalname, "UTF-8");                         // 中文转码以便机器打开
             String url = String.format("%s/%s/%s", minioHost, bucket, finalnameUTF_8);                  // 组装生成url路径
             Long id = Long.parseLong(Long.toString(name));
-            OssFileDTO ossFileDTO = OssFileDTO.builder().id(id).filename(finalname).url(url).bucket(bucket).build();
+            OssFile ossFile = OssFile.builder().id(id).filename(finalname).url(url).bucket(bucket).build();
             minioClient.putObject(bucket, finalname, ins, ins.available(), file.getContentType());
-            return ossFileDTO;
+            return ossFile;
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException | InvalidArgumentException e) {
             e.printStackTrace();
             logger.error("UPLOAD ERROR!" + e.getMessage());
@@ -71,9 +71,9 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public boolean deleteOne(OssFileDTO ossFileDTO) {
+    public boolean deleteOne(OssFile ossFile) {
         try {
-            minioClient.removeObject(ossFileDTO.getBucket(), ossFileDTO.getFilename());
+            minioClient.removeObject(ossFile.getBucket(), ossFile.getFilename());
             return true;
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException e) {
             logger.error("DELETE ERROR!" + e.getMessage());
@@ -82,10 +82,10 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public boolean deleteList(List<OssFileDTO> ossFileDTOS) {
+    public boolean deleteList(List<OssFile> ossFiles) {
         try {
-            for (OssFileDTO ossFileDTO : ossFileDTOS){
-                minioClient.removeObject(ossFileDTO.getBucket(), ossFileDTO.getFilename());
+            for (OssFile ossFile : ossFiles){
+                minioClient.removeObject(ossFile.getBucket(), ossFile.getFilename());
             }
             return true;
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException e) {

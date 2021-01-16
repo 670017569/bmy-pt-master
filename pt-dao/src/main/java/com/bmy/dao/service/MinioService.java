@@ -1,6 +1,6 @@
 package com.bmy.dao.service;
 
-import com.bmy.dao.dto.OssFileDTO;
+import com.bmy.dao.domain.OssFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -20,11 +20,11 @@ public interface MinioService {
      * @param bucket
      * @return
      */
-    public OssFileDTO upload(MultipartFile file, String bucket);
+    public OssFile upload(MultipartFile file, String bucket);
 
-    public boolean deleteOne(OssFileDTO ossFileDTO);
+    public boolean deleteOne(OssFile ossFile);
 
-    public boolean deleteList(List<OssFileDTO> ossFileDTOS);
+    public boolean deleteList(List<OssFile> ossFiles);
 
     boolean isPic(String suffix);
 }

@@ -1,5 +1,6 @@
 package com.bmy.dao.domain.ex;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,9 +18,11 @@ public class DynamicPic {
 
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long dynId;
 
     @Column

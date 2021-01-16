@@ -1,5 +1,6 @@
 package com.bmy.dao.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class WxUserInfo {
      */
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long uid;
     /**
      * 省份

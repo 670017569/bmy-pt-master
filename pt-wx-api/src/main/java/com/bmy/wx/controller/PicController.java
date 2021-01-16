@@ -4,11 +4,9 @@ import cn.hutool.core.io.FileUtil;
 import com.bmy.core.constant.R;
 import com.bmy.core.constant.Response;
 import com.bmy.dao.service.MinioService;
-import com.bmy.dao.dto.OssFileDTO;
+import com.bmy.dao.domain.OssFile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +21,6 @@ public class PicController {
 
     @Resource
     private MinioService minioService;
-
-    private final Logger logger = LoggerFactory.getLogger(PicController.class);
 
     @PostMapping("pic")
     @ApiOperation("上传图片,最大6mb,响应返回图片路径")
@@ -41,8 +37,8 @@ public class PicController {
             return R.fail(406,"图片大小超过限制");
         }else {
             minioService.checkBucket("pic");
-            OssFileDTO ossFileDTO = minioService.upload(file, "pic");
-            return R.success(200,"上传成功", ossFileDTO);
+            OssFile ossFile = minioService.upload(file, "pic");
+            return R.success(200,"上传成功", ossFile);
         }
     }
 
@@ -68,11 +64,10 @@ public class PicController {
                 return R.fail(406,"图片大小超过限制");
             }
         }
-        List<OssFileDTO> pics = new ArrayList<>();
+        List<OssFile> pics = new ArrayList<>();
         for (MultipartFile file: files){
-            OssFileDTO ossFileDTO = minioService.upload(file, "pic");
-
-            pics.add(ossFileDTO);
+            OssFile ossFile = minioService.upload(file, "pic");
+            pics.add(ossFile);
         }
         return R.success(200,"上传成功",pics);
     }
@@ -82,22 +77,17 @@ public class PicController {
      */
     @ApiOperation("删除单张图片")
     @DeleteMapping("/pic")
-    public R<Object> deleteOne(@RequestBody OssFileDTO ossFileDTO) {
-        return R.success(Response.DELETE_SUCCESS,minioService.deleteOne(ossFileDTO));
+    public R<Object> deleteOne(@RequestBody OssFile ossFile) {
+        return R.success(Response.DELETE_SUCCESS,minioService.deleteOne(ossFile));
     }
-
-
 
     /**
      * 删除一批文件
      */
     @ApiOperation("删除一组图片")
     @DeleteMapping("delete_list")
-    public R<Object> deleteList(@RequestBody List<OssFileDTO> ossFileDTOS) {
-        return R.success(Response.DELETE_SUCCESS,minioService.deleteList(ossFileDTOS));
+    public R<Object> deleteList(@RequestBody List<OssFile> ossFiles) {
+        return R.success(Response.DELETE_SUCCESS,minioService.deleteList(ossFiles));
     }
-
-
-
 
 }

@@ -7,7 +7,6 @@ import com.bmy.dao.mapper.UserMapper;
 import com.bmy.dao.service.UserService;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.Map;

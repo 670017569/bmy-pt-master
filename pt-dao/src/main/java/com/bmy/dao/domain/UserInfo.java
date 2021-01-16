@@ -1,5 +1,6 @@
 package com.bmy.dao.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class UserInfo implements Serializable {
 
     @Id
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     @Column
     private String username;

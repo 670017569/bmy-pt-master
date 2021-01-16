@@ -7,13 +7,10 @@ import com.bmy.dao.mapper.UserInfoMapper;
 import com.bmy.dao.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**

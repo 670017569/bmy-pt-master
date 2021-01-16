@@ -10,12 +10,15 @@ import java.util.List;
 public interface DynamicCommentService {
 
     //发表评论
-    public boolean pubComment(Comment comment);
+    public Comment pubComment(Comment comment);
 
     //删除评论
-    public boolean delComment(Comment comment);
+    public boolean delComment(Long id);
 
-    //查询评论
-    public List<Comment> selectAll(Comment comment);
+    //查询一级评论
+    public List<Comment> selectAll(Long dynId);
+
+    //查询二级评论
+    public List<Comment> selectByPid(Long pid);
 
 }

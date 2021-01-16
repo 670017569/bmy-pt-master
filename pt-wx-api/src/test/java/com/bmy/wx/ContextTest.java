@@ -1,6 +1,7 @@
 package com.bmy.wx;
 
 import com.bmy.dao.domain.Dynamic;
+import com.bmy.dao.mapper.CommentMapper;
 import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.mapper.NewsLinkMapper;
 import com.bmy.dao.mapper.UserInfoMapper;
@@ -43,9 +44,12 @@ public class ContextTest {
     @Resource
     private DynamicMapper dynamicMapper;
 
+    @Resource
+    private CommentMapper commentMapper;
+
     @Test
     public void test(){
-        System.out.println(dynamicMapper.selectByPrimaryKey(1));
+        System.out.println(commentMapper.selectByPrimaryKey(Long.parseLong("1350410852473241600")));
     }
 
 }

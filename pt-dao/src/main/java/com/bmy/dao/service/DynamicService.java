@@ -19,7 +19,7 @@ public interface DynamicService {
      * @param dynamicVo
      * @return
      */
-    public boolean pubDynamic(DynamicDTO dynamicVo, UserInfo userInfo);
+    public Dynamic pubDynamic(DynamicDTO dynamicVo, UserInfo userInfo);
 
     /**
      * 根据用户id查询所有动态

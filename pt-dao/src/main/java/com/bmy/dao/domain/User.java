@@ -1,5 +1,6 @@
 package com.bmy.dao.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class User  implements Serializable {
      * 主键id
      */
     @Id
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
     private Long id;
 

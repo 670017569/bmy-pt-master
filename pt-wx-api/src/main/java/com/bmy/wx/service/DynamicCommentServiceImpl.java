@@ -6,13 +6,11 @@ import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.mapper.CommentMapper;
 import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.service.DynamicCommentService;
-import com.bmy.dao.service.DynamicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,28 +28,65 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
     @Resource
     private CommentMapper commentMapper;
 
+    /**
+     * 对动态发表评论
+     * @param comment
+     * @return
+     */
     @Override
-    public boolean pubComment(Comment comment) {
+    public Comment pubComment(Comment comment) {
+        //根据评论DTO中的dynId查询动态的数据
         Dynamic dynamic = dynamicMapper.selectByPrimaryKey(comment.getDynId());
-        if (comment.getToUid().equals(dynamic.getUid())){
+        logger.info("要评论的动态:{}",dynamic);
+        //如果
+        if (comment.getToUid().equals(dynamic.getUid()) || comment.getToUid() == 0){
             comment.setToUid(null);
         }
-        comment.setId(snowflake.nextId());
+        Long id = snowflake.nextId();
+        comment.setId(id);
         logger.info("插入评论：{}",comment);
-        int res = commentMapper.insertSelective(comment);
+        commentMapper.insertSelective(comment);
         dynamic.setComments(dynamic.getComments()+1);
-        dynamicMapper.updateByPrimaryKeySelective(dynamic);
-        return res == 1;
+        int res = dynamicMapper.updateByPrimaryKeySelective(dynamic);
+        if (res == 1){
+            return commentMapper.selectByPrimaryKey(id);
+        }
+        else {
+            return null;
+        }
     }
 
-    @Override
-    public boolean delComment(Comment comment) {
-        return false;
-    }
+
 
     @Override
-    public List<Comment> selectAll(Comment comment) {
-        return null;
+    public boolean delComment(Long id) {
+        Comment comment = Comment.builder().id(id).deleted(true).build();
+        logger.info("更新内容：{}",comment);
+        return 1 == commentMapper.updateByPrimaryKeySelective(comment);
     }
+
+    /**
+     * 查询一级评论
+     * @param dynId
+     * @return
+     */
+    @Override
+    public List<Comment> selectAll(Long dynId) {
+        List<Comment> comments = commentMapper.selectByDynId(dynId);
+        return comments;
+    }
+
+    /**
+     * 查询二级评论
+     * @param pid
+     * @return
+     */
+    @Override
+    public List<Comment> selectByPid(Long pid) {
+        List<Comment> comments = commentMapper.selectByPid(pid);
+        return comments;
+    }
+
+
 
 }

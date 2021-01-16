@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bmy.dao.mapper.DynamicMapper">
-
     <resultMap id="BaseResultMap" type="com.bmy.dao.domain.Dynamic">
         <id column="id" property="id" />
         <result column="uid" property="uid" />
@@ -13,7 +12,6 @@
         <result column="comments" property="comments" />
         <result column="praised" property="praised" />
     </resultMap>
-
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
         id,uid,content,publish_time,region,deleted,clicks,comments,praised
@@ -25,11 +23,11 @@
     </resultMap>
 
     <select id="selectAll" resultMap="dynamicPic">
-        select * from bmy.dynamic where deleted = 0
+        select * from bmy.dynamic where deleted = 0 order by publish_time desc
     </select>
 
     <select id="selectByUid" resultMap="dynamicPic">
-        select * from bmy.dynamic where uid = #{uid} and deleted = 0
+        select * from bmy.dynamic where uid = #{uid} and deleted = 0 order by publish_time desc
     </select>
 
     <select id="selectByPrimaryKey" resultMap="dynamicPic">

@@ -1,27 +1,26 @@
 package com.bmy.dao.dto;
 
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * @ClassName SmsRegisterVo
- * @Description TODO
- * @Author potato
- * @Date 2020/12/18 上午12:57
- **/
+@ApiModel("用户登录DTO")
 @Data
 @Builder
-@ApiModel("手机号注册DTO")
-public class PhoneRegDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserLoginDTO {
 
+    @ApiModelProperty("用户名")
+    private String username;
     @ApiModelProperty("手机号")
     private String phone;
-
     @ApiModelProperty("密码")
     private String password;
-
     @ApiModelProperty("验证码")
     private String code;
 
