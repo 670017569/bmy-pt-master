@@ -86,6 +86,16 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
         return comments;
     }
 
+    /**
+     * 查询所有的评论
+     * @param dynId
+     * @return
+     */
+    @Override
+    public List<Comment> selectAllComment(Long dynId) {
+
+        return commentMapper.selectAllComment(dynId);
+    }
 
 
 }

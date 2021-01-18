@@ -33,6 +33,10 @@
         select count(1) from bmy.comment where pid = #{id}
     </select>
     <select id="selectById" resultMap="dynamicCommentSon">
-        select * from bmy.comment where id = #{id}
+        select * from bmy.comment where id = #{id} and deleted = 0
     </select>
+    <select id="selectAllComment" resultMap="dynamicCommentSon">
+        select * from bmy.comment where dyn_id = #{dynId} and deleted = 0 order by publish_time desc
+    </select>
+
 </mapper>

@@ -21,4 +21,7 @@ public interface DynamicCommentService {
     //查询二级评论
     public List<Comment> selectByPid(Long pid);
 
+    //查询所有评论
+    public List<Comment> selectAllComment(Long dynId);
+
 }

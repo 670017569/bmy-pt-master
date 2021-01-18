@@ -54,11 +54,6 @@ public class DynamicPraiseController {
         return R.success(Response.PRAISE_CANCEL_FAILED);
     }
 
-//    @ApiOperation("获取对某动态点赞的所有人信息")
-//    @GetMapping("users")
-//    public R<Object> getPraiseUser(Long dynId){
-//        return R.success(Response.QUERY_SUCCESS,dynamicPraiseService.selectUsersByDynId(dynId));
-//    }
 
 
 

@@ -9,10 +9,3 @@ rule "rule_sign_in"
         $userInfo.setSignTimes($userInfo.getSignTimes()+1);
 end
 
-rule "praise"
-
-    when
-
-    then
-
-end

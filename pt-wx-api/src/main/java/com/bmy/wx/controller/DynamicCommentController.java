@@ -71,4 +71,9 @@ public class DynamicCommentController {
         return R.success(Response.DELETE_SUCCESS,dynamicCommentService.delComment(id));
     }
 
+    @ApiOperation("获取动态的所有评论")
+    @GetMapping("/dynamic/comment")
+    public R<Object> getAllComments(Long dynId){
+        return R.success(Response.QUERY_SUCCESS,new PageInfo<>(dynamicCommentService.selectAll(dynId)));
+    }
 }

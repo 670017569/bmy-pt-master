@@ -18,4 +18,6 @@ public interface CommentMapper extends Mapper<Comment> {
     public Integer selectCountByPid(Long pid);
 
     Comment selectById(Long id);
+
+    List<Comment> selectAllComment(Long dynId);
 }
