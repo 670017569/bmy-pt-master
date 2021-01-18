@@ -8,6 +8,11 @@ package com.bmy.core.constant;
  * @Date 2020/12/15 下午10:54
  **/
 public enum Response {
+    NONE_DATA(200,"暂无数据"),
+    FOLLOW_SUCCESS(200,"关注成功"),
+    DELETE_FOLLOW_SUCCESS(200,"取消关注成功"),
+    FOLLOW_FAILED(406,"关注失败"),
+    DELETE_FOLLOW_FAILED(406,"取消关注失败"),
     LOAD_SUCCESS(200,"加载成功"),
     LOAD_FAILED(406,"加载失败"),
     PUBLISH_SUCCESS(200,"发布成功"),

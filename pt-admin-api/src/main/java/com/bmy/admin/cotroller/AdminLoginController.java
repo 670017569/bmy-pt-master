@@ -49,10 +49,10 @@ public class AdminLoginController {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("username", Optional.ofNullable(usernameLoginDTO.getUsername()).orElse(""));
             map.add("password", Optional.ofNullable(usernameLoginDTO.getPassword()).orElse(""));
-            map.add("grant_type", Optional.ofNullable("password").orElse(""));
-            map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(""));
-            map.add("scope", Optional.ofNullable("bmy").orElse(""));
-            map.add("client_secret", Optional.ofNullable("123456").orElse(""));
+            map.add("grant_type", Optional.of("password").orElse(""));
+            map.add("client_id", Optional.of("bmy_wechat_mp").orElse(""));
+            map.add("scope", Optional.of("bmy").orElse(""));
+            map.add("client_secret", Optional.of("123456").orElse(""));
             return adminLoginService.login(map);
         }catch (FeignException e){
             return new R<>(404,"请求超时");
@@ -73,10 +73,10 @@ public class AdminLoginController {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("phone", Optional.ofNullable(phoneSmsLoginDTO.getPhone()).orElse(""));
         map.add("code", Optional.ofNullable(phoneSmsLoginDTO.getCode()).orElse(""));
-        map.add("grant_type", Optional.ofNullable("phone").orElse(""));
-        map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(" "));
-        map.add("scope", Optional.ofNullable("bmy").orElse(""));
-        map.add("client_secret", Optional.ofNullable("123456").orElse(""));
+        map.add("grant_type", Optional.of("phone").orElse(""));
+        map.add("client_id", Optional.of("bmy_wechat_mp").orElse(" "));
+        map.add("scope", Optional.of("bmy").orElse(""));
+        map.add("client_secret", Optional.of("123456").orElse(""));
 
         Object object = null;
         try {
@@ -89,18 +89,17 @@ public class AdminLoginController {
 
     @ApiOperation("手机密码登录")
     @PostMapping("/phone/login")
-    public Object phoneLogin(@Validated @RequestBody PhonePwdLoginDTO phonePwdLoginDTO) throws HttpRequestMethodNotSupportedException {
+    public Object phoneLogin( @RequestBody PhonePwdLoginDTO phonePwdLoginDTO) throws HttpRequestMethodNotSupportedException {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("phone", Optional.ofNullable(phonePwdLoginDTO.getPhone()).orElse(""));
         map.add("password", Optional.ofNullable(phonePwdLoginDTO.getPassword()).orElse(""));
-        map.add("grant_type", Optional.ofNullable("phone").orElse(""));
-        map.add("client_id", Optional.ofNullable("bmy_wechat_mp").orElse(" "));
-        map.add("scope", Optional.ofNullable("bmy").orElse(""));
-        map.add("client_secret", Optional.ofNullable("123456").orElse(""));
-
+        map.add("grant_type", Optional.of("phone").orElse(""));
+        map.add("client_id", Optional.of("bmy_wechat_mp").orElse(" "));
+        map.add("scope", Optional.of("bmy").orElse(""));
+        map.add("client_secret", Optional.of("123456").orElse(""));
         try {
             return api.generateToken(map);
-        }catch (FeignException.BadRequest e){
+        }catch (FeignException e){
             return new R<>(Response.INVALID_PASSWORD_USERNAME,e);
         }
     }

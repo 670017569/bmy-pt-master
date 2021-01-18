@@ -6,7 +6,6 @@ import com.bmy.core.constant.SmsAuthenticated;
 import com.bmy.core.exception.BadRequestException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public interface AuthenticationApi {
      * @param map
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/oauth/token", headers = {"Content-Type: multipart/form-data , “Authorization: "})
+    @RequestMapping(method = RequestMethod.POST, value = "/oauth/token")
     public R<Object> generateToken(@RequestBody MultiValueMap<String, String> map) throws BadRequestException;
 
     /**

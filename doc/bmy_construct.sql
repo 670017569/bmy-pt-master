@@ -275,7 +275,7 @@ CREATE TABLE `news_link`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4  ROW_FORMAT = Dynamic;
 
 
-DROP TABLE IF EXISTS `file_link`;
+DROP TABLE IF EXISTS standard;
 CREATE TABLE `file_link`  (
       `id` bigint(0) NOT NULL COMMENT 'PK',
       `thumb` mediumtext CHARACTER SET utf8mb4  NULL COMMENT '缩略图',

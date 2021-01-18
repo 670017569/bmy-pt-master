@@ -55,4 +55,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         return 1 == userInfoMapper.updateByPrimaryKeySelective(userInfo);
     }
 
+    @Override
+    public UserInfo selectByUid(Long uid) {
+        return userInfoMapper.selectByPrimaryKey(uid);
+    }
+
 }

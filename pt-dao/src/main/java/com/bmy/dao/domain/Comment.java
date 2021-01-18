@@ -57,6 +57,9 @@ public class Comment {
     @Column(name = "publish_time")
     private Date publishTime;
 
+    @Column
+    private Integer type;
+
     @Transient
     private WxUserInfo wxUserInfo;
 

@@ -17,6 +17,5 @@ public interface CommentMapper extends Mapper<Comment> {
 
     public Integer selectCountByPid(Long pid);
 
-    @Override
-    Comment selectByPrimaryKey(Object key);
+    Comment selectById(Long id);
 }

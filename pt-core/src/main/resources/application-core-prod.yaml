@@ -48,10 +48,16 @@ feign:
     config:
       default:
         connectTimeout: 5000
-        readTimeout: 5000
-# 日志打印配置
+        readTimeout: 10000
+
 logging:
   level:
     root:  INFO
     org.springframework:  ERROR
     org.mybatis:  INFO
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  eager-load:
+    enabled: true
+    clients: pt-auth-center

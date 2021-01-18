@@ -14,19 +14,19 @@ import com.bmy.core.constant.Response;
 public class BadRequestException extends RuntimeException{
 
     // 只读
-    private final R resp;
+    private final R<Object> resp;
 
     public BadRequestException(Response response) {
         super(response.getMessage());
-        this.resp = new R(response);
+        this.resp = new R<>(response);
     }
 
-    public BadRequestException(R resp){
+    public BadRequestException(R<Object> resp){
         super(resp.getMessage());
         this.resp = resp;
     }
 
-    public R getResp() {
+    public R<Object> getResp() {
         return resp;
     }
 

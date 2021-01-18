@@ -4,11 +4,11 @@ package com.bmy.dao.domain;
 import com.bmy.dao.domain.ex.DynamicPic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -62,18 +62,18 @@ public class Dynamic {
     private List<DynamicPic> pics;
 
     @Transient
-    private boolean isPraised;
+    private Boolean bePraised;
+
+    @Transient
+    private Boolean isFollowed;
 
     @Transient
     private WxUserInfo wxUserInfo;
 
-    public boolean getPraised() {
-        return isPraised;
-    }
 
-    public void setIsPraised(boolean praised) {
-        isPraised = praised;
-    }
+    @Transient
+    private List<WxUserInfo> wxUserInfos;
+
 
 
 }

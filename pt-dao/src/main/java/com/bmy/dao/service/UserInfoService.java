@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserInfoService {
 
-    public UserInfo getUserByToken(HttpServletRequest request);
+    UserInfo getUserByToken(HttpServletRequest request);
 
-    public Object me(HttpServletRequest request);
+    Object me(HttpServletRequest request);
 
-    public boolean updateUserInfo(UserInfo userInfo);
+    boolean updateUserInfo(UserInfo userInfo);
+
+    UserInfo selectByUid(Long uid);
 }

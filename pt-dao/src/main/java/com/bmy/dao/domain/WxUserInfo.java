@@ -1,5 +1,6 @@
 package com.bmy.dao.domain;
 
+import com.bmy.dao.vo.WxUserVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @ClassName WxUserInfo
@@ -60,5 +62,12 @@ public class WxUserInfo {
      */
     @Column
     private String avatarUrl;
+
+    public WxUserVO convertToVo(WxUserInfo wxUserInfo){
+        return WxUserVO.builder().uid(wxUserInfo.uid)
+                .avatar_url(wxUserInfo.avatarUrl)
+                .nickName(wxUserInfo.nickName)
+                .build();
+    }
 
 }

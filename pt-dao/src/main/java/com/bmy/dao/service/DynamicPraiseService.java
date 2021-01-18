@@ -1,6 +1,10 @@
 package com.bmy.dao.service;
 
 import com.bmy.dao.domain.UserInfo;
+import com.bmy.dao.domain.WxUserInfo;
+import com.bmy.dao.vo.WxUserVO;
+
+import java.util.List;
 
 public interface DynamicPraiseService {
 
@@ -18,6 +22,7 @@ public interface DynamicPraiseService {
      */
     public boolean delPraise(UserInfo userInfo, Long dynId);
 
+
     /**
      * 设置动态与用户关系
      * @param uid
@@ -25,6 +30,8 @@ public interface DynamicPraiseService {
      * @return
      */
     public boolean setIsPraised(Long uid,Long dynId);
+
+
 
 
 }

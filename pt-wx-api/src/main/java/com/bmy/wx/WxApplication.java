@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  **/
 @SpringBootApplication
 @MapperScan("com.bmy.dao.mapper")
-@ComponentScan("com.bmy")
+@ComponentScan({"com.bmy","com.bmy.core.api"})
 @EnableDiscoveryClient
 @EnableFeignClients("com.bmy.core.api")
 public class WxApplication {

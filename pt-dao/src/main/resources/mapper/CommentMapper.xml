@@ -12,7 +12,6 @@
         <result column="dyn_id" property="dynId" />
         <result column="to_uid" property="toUid" />
     </resultMap>
-
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
         id,uid,content,publish_time,pid,deleted,dyn_id,to_uid
@@ -25,15 +24,15 @@
         <association property="toWxUser" javaType="com.bmy.dao.domain.WxUserInfo" column="to_uid" select="com.bmy.dao.mapper.WxUserInfoMapper.selectByPrimaryKey" />
     </resultMap>
     <select id="selectByDynId" resultMap="dynamicComment">
-        select * from bmy.comment where dyn_id = #{dynId} and deleted = 0 and to_uid is null order by publish_time desc
+        select * from bmy.comment where dyn_id = #{dynId} and deleted = 0 and type = 0 order by publish_time desc
     </select>
     <select id="selectByPid" resultMap="dynamicCommentSon">
-        select * from bmy.comment where pid=#{pid} and deleted = 0 and to_uid is not null order by publish_time desc
+        select * from bmy.comment where pid = #{pid} and deleted = 0 and type = 1  order by publish_time desc
     </select>
     <select id="selectCountByPid" resultType="Integer" >
         select count(1) from bmy.comment where pid = #{id}
     </select>
-    <select id="selectByPrimaryKey" resultMap="dynamicCommentSon">
-        select * from bmy.comment where id = #{key}
+    <select id="selectById" resultMap="dynamicCommentSon">
+        select * from bmy.comment where id = #{id}
     </select>
 </mapper>

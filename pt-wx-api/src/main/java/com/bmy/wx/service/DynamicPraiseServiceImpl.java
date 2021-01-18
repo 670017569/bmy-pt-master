@@ -3,27 +3,23 @@ package com.bmy.wx.service;
 import cn.hutool.core.lang.Snowflake;
 import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.domain.UserInfo;
+import com.bmy.dao.domain.WxUserInfo;
 import com.bmy.dao.domain.ex.DynamicPraise;
 import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.mapper.UserInfoMapper;
 import com.bmy.dao.mapper.ex.DynamicPraiseMapper;
 import com.bmy.dao.service.DynamicPraiseService;
 import com.bmy.dao.service.UserInfoService;
-import com.bmy.wx.drools.RuleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.bmy.dao.vo.WxUserVO;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class DynamicPraiseServiceImpl implements DynamicPraiseService {
-
-    private static final Logger logger = LoggerFactory.getLogger(DynamicPraiseServiceImpl.class);
-
-    @Resource
-    private RuleService ruleService;
 
     @Resource
     private UserInfoService userInfoService;
@@ -118,6 +114,8 @@ public class DynamicPraiseServiceImpl implements DynamicPraiseService {
             return false;
         }
     }
+
+
 
     /**
      * 在用户查询动态的列表时，

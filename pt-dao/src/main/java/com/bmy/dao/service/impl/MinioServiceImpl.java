@@ -1,5 +1,6 @@
 package com.bmy.dao.service.impl;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Snowflake;
 import com.bmy.dao.domain.OssFile;
 import com.bmy.dao.service.MinioService;
@@ -51,16 +52,25 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public OssFile upload(MultipartFile file, String bucket) {
         try {
-            long name = snowflake.nextId();
-            InputStream ins = file.getInputStream();                                                    // 输入流
-            String originalFilename = file.getOriginalFilename();                                       // 源文件名
+            Long id = snowflake.nextId();
+            //生成id为文件名
+            String originalFilename = file.getOriginalFilename();
+            // 源文件名
+            String name = FileUtil.getPrefix(originalFilename);
+            InputStream ins = file.getInputStream();
+            // 输入流
+            //获取文件名称
             assert originalFilename != null;
-            String extname = originalFilename.substring(originalFilename.lastIndexOf("."));         // 文件扩展名
-            String finalname = String.format("%s%s", name, extname);                                    // 最终文件名
-            String finalnameUTF_8 = URLEncoder.encode(finalname, "UTF-8");                         // 中文转码以便机器打开
-            String url = String.format("%s/%s/%s", minioHost, bucket, finalnameUTF_8);                  // 组装生成url路径
-            Long id = Long.parseLong(Long.toString(name));
+            String extname = originalFilename.substring(originalFilename.lastIndexOf("."));
+            // 文件扩展名
+            String finalname = String.format("%s%s", name, extname);
+            // 最终文件名
+            String finalnameUTF_8 = URLEncoder.encode(finalname, "UTF-8");
+            // 中文转码以便机器打开
+            // 组装生成url路径
+            String url = String.format("%s/%s/%s", minioHost, bucket, finalnameUTF_8);
             OssFile ossFile = OssFile.builder().id(id).filename(finalname).url(url).bucket(bucket).build();
+            //上传到minio服务器
             minioClient.putObject(bucket, finalname, ins, ins.available(), file.getContentType());
             return ossFile;
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | XmlPullParserException | InvalidBucketNameException | InsufficientDataException | ErrorResponseException | InternalException | IOException | InvalidArgumentException e) {
@@ -101,6 +111,11 @@ public class MinioServiceImpl implements MinioService {
      */
     public boolean isPic(String suffix){
         return suffix.equals("jpg") || suffix.equals("jpeg") || suffix.equals("png");
+    }
+
+    @Override
+    public boolean isDoc(String suffix) {
+        return suffix.equals("doc") || suffix.equals("docx") || suffix.equals("pdf");
     }
 
 }

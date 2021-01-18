@@ -9,6 +9,7 @@ import com.bmy.dao.dto.OssFileDTO;
 import com.bmy.dao.mapper.ex.DynamicPicMapper;
 import com.bmy.dao.service.DynamicPraiseService;
 import com.bmy.dao.service.DynamicService;
+import com.bmy.dao.service.FollowService;
 import com.bmy.dao.service.UserInfoService;
 import com.bmy.dao.dto.DynamicDTO;
 import com.bmy.dao.domain.Dynamic;
@@ -39,6 +40,9 @@ public class DynamicServiceImpl implements DynamicService {
     @Resource
     private UserInfoService userInfoService;
 
+    @Resource
+    private FollowService followService;
+
     /**
      * 查询所有动态
      * @return
@@ -46,7 +50,8 @@ public class DynamicServiceImpl implements DynamicService {
     public List<Dynamic> selectAll(Long uid){
         List<Dynamic> dynamics = dynamicMapper.selectAll();
         for (Dynamic dynamic : dynamics){
-            dynamic.setIsPraised(dynamicPraiseService.setIsPraised(uid,dynamic.getId()));
+            dynamic.setIsFollowed(followService.setIsFollowed(uid,dynamic.getUid()));
+            dynamic.setBePraised(dynamicPraiseService.setIsPraised(uid,dynamic.getId()));
         }
         return dynamics;
     }
@@ -66,6 +71,7 @@ public class DynamicServiceImpl implements DynamicService {
                     .region(dynamicVo.getRegion())
                     .build();
             List<OssFileDTO> pics = dynamicVo.getPics();
+
             //将动态插入表中
             int res = dynamicMapper.insertSelective(dynamic);
             if (res == 1){
@@ -93,7 +99,8 @@ public class DynamicServiceImpl implements DynamicService {
     public List<Dynamic> selectByUid(Long uid) {
         List<Dynamic> dynamics = dynamicMapper.selectByUid(uid);
         for (Dynamic dynamic : dynamics){
-            dynamic.setIsPraised(dynamicPraiseService.setIsPraised(uid,dynamic.getId()));
+            dynamic.setIsFollowed(followService.setIsFollowed(uid,dynamic.getUid()));
+            dynamic.setBePraised(dynamicPraiseService.setIsPraised(uid,dynamic.getId()));
         }
         return dynamics;
     }
@@ -114,6 +121,14 @@ public class DynamicServiceImpl implements DynamicService {
         userInfo.setDynamics(userInfo.getDynamics()-1);
         userInfoService.updateUserInfo(userInfo);
         return 1 == res;
+    }
+
+    @Override
+    public Dynamic selectByDynId(Long dynId,UserInfo userInfo) {
+        Dynamic dynamic = dynamicMapper.selectByPrimaryKey(dynId);
+        dynamic.setIsFollowed(followService.setIsFollowed(userInfo.getId(),dynamic.getUid()));
+        dynamic.setBePraised(dynamicPraiseService.setIsPraised(userInfo.getId(),dynamic.getId()));
+        return dynamic;
     }
 
 }

@@ -35,5 +35,10 @@ public interface DynamicService {
      */
     public boolean deleteById(Long id,UserInfo userInfo);
 
-
+    /**
+     * 根据主键查询动态
+     * @param dynId
+     * @return
+     */
+    public Dynamic selectByDynId(Long dynId,UserInfo userInfo);
 }

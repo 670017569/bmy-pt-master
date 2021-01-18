@@ -27,4 +27,6 @@ public interface MinioService {
     public boolean deleteList(List<OssFile> ossFiles);
 
     boolean isPic(String suffix);
+
+    boolean isDoc(String suffix);
 }

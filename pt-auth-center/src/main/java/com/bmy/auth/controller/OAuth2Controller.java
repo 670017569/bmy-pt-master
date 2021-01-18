@@ -40,7 +40,7 @@ public class OAuth2Controller {
     private CheckTokenEndpoint checkTokenEndpoint;
 
     @GetMapping("/token")
-    public R<Object> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public R<Object> getAccessToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         Object o = null;
         try {
             o = tokenEndpoint.getAccessToken(principal, parameters).getBody();

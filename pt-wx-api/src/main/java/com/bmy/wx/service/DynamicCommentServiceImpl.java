@@ -24,7 +24,6 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
     @Resource
     private Snowflake snowflake;
 
-
     @Resource
     private CommentMapper commentMapper;
 
@@ -39,8 +38,8 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
         Dynamic dynamic = dynamicMapper.selectByPrimaryKey(comment.getDynId());
         logger.info("要评论的动态:{}",dynamic);
         //如果
-        if (comment.getToUid().equals(dynamic.getUid()) || comment.getToUid() == 0){
-            comment.setToUid(null);
+        if (comment.getToUid() != 0){
+            comment.setType(1);
         }
         Long id = snowflake.nextId();
         comment.setId(id);
@@ -49,7 +48,7 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
         dynamic.setComments(dynamic.getComments()+1);
         int res = dynamicMapper.updateByPrimaryKeySelective(dynamic);
         if (res == 1){
-            return commentMapper.selectByPrimaryKey(id);
+            return commentMapper.selectById(id);
         }
         else {
             return null;

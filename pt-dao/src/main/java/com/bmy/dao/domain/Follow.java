@@ -1,7 +1,5 @@
-package com.bmy.dao.domain.ex;
+package com.bmy.dao.domain;
 
-import com.bmy.dao.domain.WxUserInfo;
-import com.bmy.dao.vo.WxUserVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,34 +9,51 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Date;
-import java.util.List;
 
+/***
+ * 用户关注实体类
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "dynamic_praise")
-public class DynamicPraise {
+@Table(name = "follow")
+public class Follow {
 
+    /**
+     * PK_id
+     */
     @Id
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
+    /**
+     * 用户id
+     */
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long uid;
 
+    /**
+     * 被关注的用户id
+     */
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long dynId;
+    private Long fuid;
 
-    @Column(name = "praise_time")
-    private Date praiseTime;
+    /**
+     * 是否取消关注
+     */
+    @Column
+    @JsonFormat(shape = JsonFormat.Shape.BOOLEAN)
+    private Integer canceled;
 
-    @Column(name = "canceled")
-    private Boolean canceled;
+    /**
+     * 关注时间
+     */
+    @Column
+    private Date createTime;
 
 }

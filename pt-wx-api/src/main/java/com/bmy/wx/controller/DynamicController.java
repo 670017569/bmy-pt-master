@@ -28,12 +28,21 @@ public class DynamicController {
     /***********************************         对动态的查询           **********************************/
     @ApiOperation("分页获取动态所有动态")
     @GetMapping("dynamics")
-    public R<Object> getAllDynamics(Integer page, Integer size,HttpServletRequest request){
-        PageHelper.startPage(page,size);
+    public R<PageInfo<Dynamic>> getAllDynamics(Integer page, Integer size,HttpServletRequest request){
         UserInfo userInfo = userInfoService.getUserByToken(request);
-        return R.success(Response.QUERY_SUCCESS,new PageInfo<>(dynamicService.selectAll(userInfo.getId())));
+        PageHelper.startPage(page,size);
+        return new R<>(Response.QUERY_SUCCESS,new PageInfo<>(dynamicService.selectAll(userInfo.getId())));
     }
-
+    @GetMapping("/dynamic")
+    @ApiOperation("获取用户自己的动态列表")
+    public R<PageInfo<Dynamic>> getDynamic(HttpServletRequest request,@RequestParam("page") Integer page,@RequestParam("size") Integer size){
+        //获取用户自己的详细信息
+        UserInfo userInfo = userInfoService.getUserByToken(request);
+        //获取用户自己的动态列表
+        PageHelper.startPage(page,size);
+        List<Dynamic> dynamics = dynamicService.selectByUid(userInfo.getId());
+        return new R<>(Response.QUERY_SUCCESS,new PageInfo<>(dynamics));
+    }
     @ApiOperation(value = "发布动态")
     @PostMapping("dynamic")
     public R<Object> pubDynamic(HttpServletRequest request ,@RequestBody DynamicDTO dynamicDTO){
@@ -47,16 +56,7 @@ public class DynamicController {
         return R.success(Response.DYNAMIC_PUBLISH_SUCCESS,res);
     }
 
-    @GetMapping("/dynamic")
-    @ApiOperation("获取用户自己的动态列表")
-    public R<Object> getDynamic(HttpServletRequest request,Integer page, Integer size){
-        PageHelper.startPage(page,size);
-        //获取用户自己的详细信息
-        UserInfo userInfo = userInfoService.getUserByToken(request);
-        //获取用户自己的动态列表
-        List<Dynamic> dynamics = dynamicService.selectByUid(userInfo.getId());
-        return R.success(Response.QUERY_SUCCESS,dynamics);
-    }
+
 
     @ApiOperation("根据动态id删除动态")
     @DeleteMapping("/dynamic/{dynId}")
@@ -64,4 +64,14 @@ public class DynamicController {
         UserInfo userInfo = userInfoService.getUserByToken(request);
         return R.success(Response.DELETE_SUCCESS,dynamicService.deleteById(dynId,userInfo));
     }
+
+    @ApiOperation("根据动态id查询动态详情")
+    @GetMapping("dynamic/{dynId}")
+    public R<Object> selectByDynId(@PathVariable("dynId") Long dynId,HttpServletRequest request){
+        UserInfo userInfo = userInfoService.getUserByToken(request);
+        return R.success(Response.QUERY_SUCCESS,dynamicService.selectByDynId(dynId,userInfo));
+    }
+
+
+
 }

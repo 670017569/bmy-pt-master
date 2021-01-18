@@ -1,6 +1,7 @@
 package com.bmy.dao.mapper;
 
 import com.bmy.dao.domain.Dynamic;
+import com.bmy.dao.domain.ex.DynamicPraise;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,7 @@ public interface DynamicMapper extends Mapper<Dynamic> {
      */
     @Override
     Dynamic selectByPrimaryKey(Object key);
+
+
+
 }

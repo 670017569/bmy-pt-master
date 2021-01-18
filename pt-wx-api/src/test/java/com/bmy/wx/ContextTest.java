@@ -1,18 +1,17 @@
 package com.bmy.wx;
 
-import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.mapper.CommentMapper;
 import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.mapper.NewsLinkMapper;
 import com.bmy.dao.mapper.UserInfoMapper;
 import com.bmy.dao.mapper.ex.DynamicPicMapper;
 import com.bmy.dao.mapper.ex.UserRoleMapper;
+import com.bmy.dao.service.DynamicPraiseService;
 import com.bmy.wx.service.DynamicServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 
@@ -47,9 +46,12 @@ public class ContextTest {
     @Resource
     private CommentMapper commentMapper;
 
+    @Resource
+    private DynamicPraiseService dynamicPraiseService;
+
     @Test
     public void test(){
-        System.out.println(commentMapper.selectByPrimaryKey(Long.parseLong("1350410852473241600")));
+
     }
 
 }
