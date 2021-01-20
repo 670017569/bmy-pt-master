@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface DynamicPraiseMapper extends Mapper<DynamicPraise> {
 
+    List<DynamicPraise> selectPraiseMessage(Long uid);
 
 }

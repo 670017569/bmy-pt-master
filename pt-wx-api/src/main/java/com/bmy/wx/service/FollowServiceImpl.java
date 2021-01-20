@@ -4,12 +4,15 @@ import cn.hutool.core.lang.Snowflake;
 import com.bmy.core.constant.Response;
 import com.bmy.core.exception.BadRequestException;
 import com.bmy.dao.domain.Follow;
+import com.bmy.dao.domain.WxUserInfo;
 import com.bmy.dao.mapper.FollowMapper;
+import com.bmy.dao.mapper.WxUserInfoMapper;
 import com.bmy.dao.service.FollowService;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  *
@@ -22,6 +25,9 @@ public class FollowServiceImpl implements FollowService {
 
     @Resource
     private Snowflake snowflake;
+
+    @Resource
+    private WxUserInfoMapper wxUserInfoMapper;
 
     @Override
     public boolean follow(Long uid, Long fuid) {
@@ -41,6 +47,8 @@ public class FollowServiceImpl implements FollowService {
         }
     }
 
+
+
     @Override
     public boolean delFollow(Long uid, Long fuid) {
         Example example = new Example(Follow.class);
@@ -54,6 +62,26 @@ public class FollowServiceImpl implements FollowService {
             throw new BadRequestException(Response.ILLEGAL_PARAMS);
         }
     }
+
+    @Override
+    public List<WxUserInfo> selectFollows(Long uid) {
+        List<WxUserInfo> wxUserInfos = wxUserInfoMapper.selectFollows(uid);
+        for (WxUserInfo wxUserInfo: wxUserInfos) {
+            wxUserInfo.setIsMutual(wxUserInfoMapper.selectMutual(uid,wxUserInfo.getUid()));
+        }
+        return wxUserInfos;
+    }
+
+    @Override
+    public List<WxUserInfo> selectFans(Long uid) {
+        List<WxUserInfo> wxUserInfos = wxUserInfoMapper.selectFans(uid);
+        for (WxUserInfo wxUserInfo: wxUserInfos) {
+            wxUserInfo.setIsMutual(wxUserInfoMapper.selectMutual(uid,wxUserInfo.getUid()));
+        }
+        return wxUserInfos;
+    }
+
+
     @Override
     public boolean setIsFollowed(Long uid, Long fuid) {
         Example example = new Example(Follow.class);
@@ -63,4 +91,5 @@ public class FollowServiceImpl implements FollowService {
         Follow follow = followMapper.selectOneByExample(example);
         return follow != null;
     }
+
 }

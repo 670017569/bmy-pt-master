@@ -24,7 +24,6 @@ import java.util.List;
 @Service
 public class DynamicServiceImpl implements DynamicService {
 
-
     @Resource
     private DynamicMapper dynamicMapper;
 
@@ -55,6 +54,7 @@ public class DynamicServiceImpl implements DynamicService {
         }
         return dynamics;
     }
+
     /**
      * 发布一条新动态
      * @param dynamicVo
@@ -71,7 +71,6 @@ public class DynamicServiceImpl implements DynamicService {
                     .region(dynamicVo.getRegion())
                     .build();
             List<OssFileDTO> pics = dynamicVo.getPics();
-
             //将动态插入表中
             int res = dynamicMapper.insertSelective(dynamic);
             if (res == 1){
@@ -91,6 +90,7 @@ public class DynamicServiceImpl implements DynamicService {
             return null;
         }
     }
+
     /**
      * 根据uid查询动态
      * @param uid
@@ -105,6 +105,12 @@ public class DynamicServiceImpl implements DynamicService {
         return dynamics;
     }
 
+    /**
+     * 根据id删除动态
+     * @param id
+     * @param userInfo
+     * @return
+     */
     @Override
     public boolean deleteById(Long id,UserInfo userInfo) {
         //根据dynId查询该动态，并判断该动态的uid是否与userInfo中的uid相同，若不同则返回非法参数

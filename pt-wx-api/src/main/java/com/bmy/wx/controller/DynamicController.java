@@ -25,6 +25,7 @@ public class DynamicController {
 
     @Resource
     private UserInfoService userInfoService;
+
     /***********************************         对动态的查询           **********************************/
     @ApiOperation("分页获取动态所有动态")
     @GetMapping("dynamics")
@@ -33,6 +34,7 @@ public class DynamicController {
         PageHelper.startPage(page,size);
         return new R<>(Response.QUERY_SUCCESS,new PageInfo<>(dynamicService.selectAll(userInfo.getId())));
     }
+
     @GetMapping("/dynamic")
     @ApiOperation("获取用户自己的动态列表")
     public R<PageInfo<Dynamic>> getDynamic(HttpServletRequest request,@RequestParam("page") Integer page,@RequestParam("size") Integer size){

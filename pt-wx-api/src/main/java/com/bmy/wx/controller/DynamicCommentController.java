@@ -74,6 +74,6 @@ public class DynamicCommentController {
     @ApiOperation("获取动态的所有评论")
     @GetMapping("/dynamic/comment")
     public R<Object> getAllComments(Long dynId){
-        return R.success(Response.QUERY_SUCCESS,new PageInfo<>(dynamicCommentService.selectAll(dynId)));
+        return R.success(Response.QUERY_SUCCESS,dynamicCommentService.selectAllComment(dynId));
     }
 }

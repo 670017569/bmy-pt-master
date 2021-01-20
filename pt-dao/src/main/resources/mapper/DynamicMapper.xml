@@ -16,7 +16,6 @@
         <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
         id,uid,content,publish_time,region,deleted,clicks,comments,praised
     </sql>
-
     <resultMap id="dynamicPic" extends="BaseResultMap" type="com.bmy.dao.domain.Dynamic">
         <association property="wxUserInfo" javaType="com.bmy.dao.domain.WxUserInfo" column="uid" select="com.bmy.dao.mapper.WxUserInfoMapper.selectByPrimaryKey" />
         <collection property="pics" ofType="com.bmy.dao.domain.ex.DynamicPic" column="id" select="com.bmy.dao.mapper.ex.DynamicPicMapper.selectByDynId"/>
@@ -25,16 +24,11 @@
     <select id="selectAll" resultMap="dynamicPic">
         select * from bmy.dynamic where deleted = 0 order by publish_time desc
     </select>
-
     <select id="selectByUid" resultMap="dynamicPic">
         select * from bmy.dynamic where uid = #{uid} and deleted = 0 order by publish_time desc
     </select>
-
     <select id="selectByPrimaryKey" resultMap="dynamicPic">
         select * from bmy.dynamic where id = #{key} and deleted = 0
     </select>
-
-
-
 
 </mapper>

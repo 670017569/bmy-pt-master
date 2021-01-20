@@ -2,8 +2,10 @@ package com.bmy.dao.domain;
 
 import com.bmy.dao.vo.WxUserVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -19,6 +21,8 @@ import javax.persistence.Transient;
 @Data
 @Table(name = "wx_userinfo")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class WxUserInfo {
     /**
      * 用户id
@@ -35,7 +39,7 @@ public class WxUserInfo {
     /**
      * 昵称
      */
-    @Column
+    @Column(name = "nick_name")
     private String nickName;
     /**
      * 语言
@@ -63,11 +67,11 @@ public class WxUserInfo {
     @Column
     private String avatarUrl;
 
-    public WxUserVO convertToVo(WxUserInfo wxUserInfo){
-        return WxUserVO.builder().uid(wxUserInfo.uid)
-                .avatar_url(wxUserInfo.avatarUrl)
-                .nickName(wxUserInfo.nickName)
-                .build();
-    }
+    /**
+     * 是否互相关注
+     */
+    @Transient
+    private Boolean isMutual;
+
 
 }

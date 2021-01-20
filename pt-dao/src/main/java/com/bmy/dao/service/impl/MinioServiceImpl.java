@@ -68,7 +68,8 @@ public class MinioServiceImpl implements MinioService {
             String finalnameUTF_8 = URLEncoder.encode(finalname, "UTF-8");
             // 中文转码以便机器打开
             // 组装生成url路径
-            String url = String.format("%s/%s/%s", minioHost, bucket, finalnameUTF_8);
+            String host = minioHost.replace(":8999","").replace("http://","https://");
+            String url = String.format("%s/%s/%s", host, bucket, finalnameUTF_8);
             OssFile ossFile = OssFile.builder().id(id).filename(finalname).url(url).bucket(bucket).build();
             //上传到minio服务器
             minioClient.putObject(bucket, finalname, ins, ins.available(), file.getContentType());

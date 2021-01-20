@@ -1,19 +1,14 @@
 package com.bmy.dao.domain.ex;
 
+import com.bmy.dao.domain.Dynamic;
 import com.bmy.dao.domain.WxUserInfo;
-import com.bmy.dao.vo.WxUserVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Builder
@@ -40,5 +35,14 @@ public class DynamicPraise {
 
     @Column(name = "canceled")
     private Boolean canceled;
+
+    @Column
+    private Boolean isRead;
+
+    @Transient
+    private Dynamic dynamic;
+
+    @Transient
+    private WxUserInfo praiseUser;
 
 }

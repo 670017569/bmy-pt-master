@@ -55,13 +55,18 @@ public class DynamicCommentServiceImpl implements DynamicCommentService {
         }
     }
 
-
-
     @Override
     public boolean delComment(Long id) {
-        Comment comment = Comment.builder().id(id).deleted(true).build();
-        logger.info("更新内容：{}",comment);
-        return 1 == commentMapper.updateByPrimaryKeySelective(comment);
+        Comment comment = commentMapper.selectById(id);
+        comment.setDeleted(true);
+        int res = commentMapper.updateByPrimaryKeySelective(comment);
+        if (res == 1){
+            Dynamic dynamic = dynamicMapper.selectByPrimaryKey(comment.getDynId());
+            dynamic.setComments(dynamic.getComments()-1);
+            dynamicMapper.updateByPrimaryKeySelective(dynamic);
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -71,9 +71,4 @@ public class Dynamic {
     private WxUserInfo wxUserInfo;
 
 
-    @Transient
-    private List<WxUserInfo> wxUserInfos;
-
-
-
 }

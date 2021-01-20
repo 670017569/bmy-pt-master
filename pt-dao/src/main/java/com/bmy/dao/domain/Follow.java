@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /***
@@ -56,4 +57,15 @@ public class Follow {
     @Column
     private Date createTime;
 
+    /**
+     * 是否已读
+     */
+    @Column
+    private Boolean isRead;
+
+    /**
+     * 发起该关注的用户信息
+     */
+    @Transient
+    private WxUserInfo wxUserInfo;
 }

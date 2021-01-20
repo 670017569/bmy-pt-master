@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmy.dao.mapper.ex.DynamicPraiseMapper">
+    <resultMap id="BaseResultMap" type="com.bmy.dao.domain.ex.DynamicPraise">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="dyn_id" property="dynId" />
+        <result column="praise_time" property="praiseTime" />
+        <result column="canceled" property="canceled" />
+        <result column="read" property="read" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
+        id,uid,dyn_id,praise_time,canceled,`read`
+    </sql>
+    <resultMap id="PraiseMessage" extends="BaseResultMap" type="com.bmy.dao.domain.ex.DynamicPraise">
+        <association property="dynamic" javaType="com.bmy.dao.domain.Dynamic" column="dyn_id" select="com.bmy.dao.mapper.DynamicMapper.selectByPrimaryKey" />
+        <association property="praiseUser" javaType="com.bmy.dao.domain.WxUserInfo" column="uid" select="com.bmy.dao.mapper.WxUserInfoMapper.selectByPrimaryKey" />
+    </resultMap>
+    <select id="selectPraiseMessage" resultMap="PraiseMessage">
+        select * from bmy.dynamic_praise where dyn_id in (select dynamic.id from bmy.dynamic where dynamic.uid = #{uid}) and canceled = 0 order by praise_time desc
+    </select>
+</mapper>

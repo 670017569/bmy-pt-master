@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bmy.dao.mapper.WxUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.bmy.dao.domain.WxUserInfo">
+        <result column="uid" property="uid" />
+        <result column="province" property="province" />
+        <result column="nick_name" property="nickName" />
+        <result column="language" property="language" />
+        <result column="gender" property="gender" />
+        <result column="country" property="country" />
+        <result column="city" property="city" />
+        <result column="avatar_url" property="avatarUrl" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Feb 17 21:01:25 CST 2020.-->
+        uid,province,nick_name,language,gender,country,city,avatar_url
+    </sql>
+    <resultMap id="wxUserMutual" extends="BaseResultMap" type="com.bmy.dao.domain.WxUserInfo">
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="wxUserMutual">
+        select * from wx_userinfo where uid = #{key}
+    </select>
+    <select id="selectFollows" resultMap="wxUserMutual">
+        select * from wx_userinfo where uid in (select fuid from follow where follow.uid = #{uid} and canceled = 0)
+    </select>
+    <select id="selectFans" resultMap="wxUserMutual">
+        select * from wx_userinfo where uid in (select follow.uid from follow where follow.fuid = #{uid} and canceled = 0)
+    </select>
+    <select id="selectMutual" resultType="Boolean">
+        select count(1) from bmy.`follow` where canceled = 0 and `uid`=#{uid} and `fuid`=#{fuid} and `uid` in (select `fuid` from bmy.`follow` where `uid`=#{fuid} and canceled = 0)
+    </select>
+</mapper>

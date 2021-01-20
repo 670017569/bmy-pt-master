@@ -5,6 +5,7 @@ import com.bmy.dao.mapper.DynamicMapper;
 import com.bmy.dao.mapper.NewsLinkMapper;
 import com.bmy.dao.mapper.UserInfoMapper;
 import com.bmy.dao.mapper.ex.DynamicPicMapper;
+import com.bmy.dao.mapper.ex.DynamicPraiseMapper;
 import com.bmy.dao.mapper.ex.UserRoleMapper;
 import com.bmy.dao.service.DynamicPraiseService;
 import com.bmy.wx.service.DynamicServiceImpl;
@@ -49,8 +50,12 @@ public class ContextTest {
     @Resource
     private DynamicPraiseService dynamicPraiseService;
 
+    @Resource
+    private DynamicPraiseMapper dynamicPraiseMapper;
     @Test
     public void test(){
+
+        System.out.println(dynamicPraiseMapper.selectPraiseMessage(Long.parseLong("1338842507810701311")));
 
     }
 

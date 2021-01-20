@@ -1,9 +1,14 @@
 package com.bmy.dao.service;
 
+import com.bmy.dao.domain.WxUserInfo;
+
+import java.util.List;
+
 /**
  * 关注service
  */
 public interface FollowService {
+
 
     /**
      * uid关注fuid
@@ -21,6 +26,9 @@ public interface FollowService {
      */
     boolean delFollow(Long uid , Long fuid);
 
+    List<WxUserInfo> selectFollows(Long uid);
+
+    List<WxUserInfo> selectFans(Long uid);
 
     /**
      *  设置用户之间的关注关系
