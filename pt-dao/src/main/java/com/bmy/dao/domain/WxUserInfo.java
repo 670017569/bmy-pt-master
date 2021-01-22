@@ -1,6 +1,5 @@
 package com.bmy.dao.domain;
 
-import com.bmy.dao.vo.WxUserVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

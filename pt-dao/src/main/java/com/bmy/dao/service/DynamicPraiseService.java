@@ -2,7 +2,6 @@ package com.bmy.dao.service;
 
 import com.bmy.dao.domain.UserInfo;
 import com.bmy.dao.domain.WxUserInfo;
-import com.bmy.dao.vo.WxUserVO;
 
 import java.util.List;
 
